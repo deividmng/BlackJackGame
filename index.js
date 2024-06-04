@@ -44,19 +44,13 @@ function getRandonCard() {
 }
 
 let betAmount = 0;  // Cantidad actual de la apuesta
-let initialBet = 0;  // Cantidad inicial de la apuesta
 let betSum = document.getElementById("betSum");
 
 function betFive() {
   if (chips[0] >= 5) {
-    if (initialBet === 0 || initialBet === 5) {
-      betAmount += 5;
-      initialBet = 5;
-      chips[0] -= 5;
-      updateBetDisplay();
-    } else {
-      alert("You can only add the same amount as the initial bet.");
-    }
+    betAmount += 5;
+    chips[0] -= 5;
+    updateBetDisplay();
   } else {
     alert("Not enough chips to place this bet.");
   }
@@ -64,14 +58,9 @@ function betFive() {
 
 function betTen() {
   if (chips[0] >= 10) {
-    if (initialBet === 0 || initialBet === 10) {
-      betAmount += 10;
-      initialBet = 10;
-      chips[0] -= 10;
-      updateBetDisplay();
-    } else {
-      alert("You can only add the same amount as the initial bet.");
-    }
+    betAmount += 10;
+    chips[0] -= 10;
+    updateBetDisplay();
   } else {
     alert("Not enough chips to place this bet.");
   }
@@ -84,21 +73,23 @@ function updateBetDisplay() {
 
 function loseBet() {
   betAmount = 0;  // Resetear la apuesta
-  initialBet = 0;
   updateBetDisplay();
 }
 
 function winBet() {
   chips[0] += betAmount * 2;  // Ganar las chips apostadas
   betAmount = 0;  // Resetear la apuesta
-  initialBet = 0;
   updateBetDisplay();
 }
 
+let hasDrawnCard = false;  // Variable para rastrear si el jugador ha pedido una nueva carta
+
+// Restricción de apuestas adicionales después de la apuesta inicial
 function startGame() {
   if (betAmount > 0) {  // Verificar si se ha realizado una apuesta
     isAlive = true;
     hasBlackJack = false;
+    hasDrawnCard = false;  // Reiniciar la variable de control al iniciar el juego
     let firstCard = getRandonCard();
     let secondCard = getRandonCard();
     cards = [firstCard, secondCard];
@@ -108,6 +99,12 @@ function startGame() {
     let firstCardDealer = getRandonCard();
     dealerCards = [firstCardDealer];
     sumDealer = firstCardDealer;
+
+    document.getElementById("doubleBet").style.display = "block";  // Mostrar el botón de doblar apuesta
+
+    // Desactivar los botones de apuesta adicional
+    document.getElementById("bet-five-btn").disabled = true;
+    document.getElementById("bet-ten-btn").disabled = true;
 
     renderGame();
     renderGameDealer();
@@ -127,8 +124,8 @@ function renderGame() {
     isAlive = false;
     winBet();  // Ganar la apuesta si se obtiene un Blackjack
     resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
-  } else {
-    message = "You Lost";
+  } else if (sum > 21) {  // Si el jugador se pasa de 21, el dealer gana automáticamente
+    message = "You Bust! Dealer Wins!";
     isAlive = false;
     loseBet();  // Perder la apuesta si se pierde
     resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
@@ -141,18 +138,52 @@ function newCard() {
     let card = getRandonCard();
     sum += card;
     cards.push(card);
+    hasDrawnCard = true;  // Marcar que el jugador ha pedido una nueva carta
+    document.getElementById("doubleBet").style.display = "none";  // Ocultar el botón de doblar apuesta
     renderGame();
-   // dealerNewCard();  // Añadir una carta al dealer cuando el jugador pide una nueva carta
+    if (sum > 21) {
+      message = "You Bust! Dealer Wins!";
+      isAlive = false;
+      loseBet();  // Perder la apuesta si se pasa de 21
+      resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
+    }
   }
 }
 
 function dealerNewCard() {
-  if (sumDealer < 17) {
+  while (sumDealer < 17) {
     let card = getRandonCard();
     dealerCards.push(card);
     sumDealer += card;
   }
   renderGameDealer();  // Actualizar la visualización del dealer después de añadir una nueva carta
+}
+
+function doubleBet() {
+  stand()
+  if (chips[0] >= betAmount && !hasDrawnCard) {  // Solo permitir doblar la apuesta si no se ha pedido una nueva carta
+    chips[0] -= betAmount;
+    betAmount *= 2;
+    updateBetDisplay();
+
+    // Pedir una nueva carta
+    let card = getRandonCard();
+    sum += card;
+    cards.push(card);
+    hasDrawnCard = true;  // Marcar que el jugador ha pedido una nueva carta
+    document.getElementById("doubleBet").style.display = "none";  // Ocultar el botón de doblar apuesta
+    renderGame();
+
+    // Si la tercera carta se da al jugador, termina el juego
+    if (sum > 21) {
+      message = "You Bust! Dealer Wins!";
+      isAlive = false;
+      loseBet();  // Perder la apuesta si se pasa de 21
+      resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
+    }
+  } else {
+    alert("Not enough chips to double the bet or you've already drawn a new card.");
+  }
 }
 
 // Dealer logic
@@ -177,23 +208,23 @@ function renderGameDealer() {
 }
 
 function stand() {
-  while (sumDealer < 17) {
-    let card = getRandonCard();
-    dealerCards.push(card);
-    sumDealer += card;
-  }
-  renderGameDealer();
-  // Check winner
-  if (sumDealer > 21 || sum > sumDealer) {
+  dealerNewCard();  // El dealer comienza a tomar cartas solo cuando el jugador decide "stand"
+  
+  // Determinar el ganador
+  if (sumDealer > 21) {
+    message = "Dealer Busted! You Win!";
+    winBet();
+  } else if (sum > sumDealer) {
     message = "You Win!";
     winBet();
-  } else if (sum === sumDealer) {
-    message = "It's a tie!";
-    chips[0] += betAmount; // Devolver la apuesta en caso de empate
-  } else {
+  } else if (sum < sumDealer) {
     message = "Dealer Wins!";
     loseBet();
+  } else {
+    message = "It's a tie!";
+    chips[0] += betAmount; // Devolver la apuesta en caso de empate
   }
+
   messageEl.textContent = message;
   isAlive = false;
   resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
@@ -211,5 +242,10 @@ function resetGameAfterDelay() {
     cardDel.textContent = "Dealer's Cards:";
     playerDealer.textContent = "Dealer's Sum:";
     messageDealer.textContent = "Dealer's message will appear here";
+    document.getElementById("doubleBet").style.display = "none";  // Ocultar el botón de doblar apuesta
+
+    // Reactivar los botones de apuesta después de reiniciar el juego
+    document.getElementById("bet-five-btn").disabled = false;
+    document.getElementById("bet-ten-btn").disabled = false;
   }, 3000);
 }

@@ -12,28 +12,26 @@
     <p id="cards-dele">Dealer's Cards:</p>
     <p id="message-dele">Dealer's message will appear here</p>
     <p id="player-dele">Dealer's Sum:</p>
-    
   </section>
 
   <p id="message-el">Want to play a round?</p>
   <p id="cards-el">Your Cards:</p>
   <p id="sum-el">Your Sum:</p>
 
-  <button id="startGame" onclick="startGame()">Deal</button>
-  <br>
+  <button id="startGame" onclick="startGame()">Start Game</button>
   <button id="newCard" onclick="newCard()">NEW CARD</button>
   <button id="stand" onclick="stand()">STAND</button>
-
+  <button id="doubleBet" onclick="doubleBet()" style="display:none;">DOUBLE BET</button>
 
   <p id="player-el">David: £200</p>
 
   <p id="betSum">Bet Sum: 0</p>
 
-  <button id="betFive" onclick="betFive()">Bet 5</button>
-  <button id="betTen" onclick="betTen()">Bet 10</button>
+  <button id="bet-five-btn" onclick="betFive()">Bet £5</button>
+   <button id="bet-ten-btn" onclick="betTen()">Bet £10</button>
+  
 
   <p id="counter-el">Next chips in: 60s</p> <!-- Contador de tiempo -->
-
 
   <script src="index.js"></script>
 </body>
