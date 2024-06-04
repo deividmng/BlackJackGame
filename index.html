@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>BlackJack</h1>
+
+  <section id="dealer">
+    <p id="cards-dele">Dealer's Cards:</p>
+    <p id="message-dele">Dealer's message will appear here</p>
+    <p id="player-dele">Dealer's Sum:</p>
+    
+  </section>
+
+  <p id="message-el">Want to play a round?</p>
+  <p id="cards-el">Your Cards:</p>
+  <p id="sum-el">Your Sum:</p>
+
+  <button id="startGame" onclick="startGame()">Deal</button>
+  <br>
+  <button id="newCard" onclick="newCard()">NEW CARD</button>
+  <button id="stand" onclick="stand()">STAND</button>
+
+
+  <p id="player-el">David: £200</p>
+
+  <p id="betSum">Bet Sum: 0</p>
+
+  <button id="betFive" onclick="betFive()">Bet 5</button>
+  <button id="betTen" onclick="betTen()">Bet 10</button>
+
+  <p id="counter-el">Next chips in: 60s</p> <!-- Contador de tiempo -->
+
+
+  <script src="index.js"></script>
+</body>
+</html>

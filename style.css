@@ -1,0 +1,33 @@
+body {
+    background-color: green;
+    text-align: center;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+    font-size: 42px;
+}
+
+p {
+    color: white;
+  
+}
+
+#startGame {
+    background-color: goldenrod;
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 5px;
+    font-size: bold;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+
+
+#dealer {
+    background-color: rgb(23, 62, 96);
+    border: 2px solid beige;
+}
