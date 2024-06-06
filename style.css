@@ -1,5 +1,14 @@
-body {
-    background-color: green;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 0 20px;
+  }
+
+  body {
+    background-image: url(./img/Screenshot\ 2024-06-04\ 212254.png);
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajustar la imagen al tamaño del cuerpo */
     text-align: center;
 }
 
@@ -31,3 +40,7 @@ p {
     background-color: rgb(23, 62, 96);
     border: 2px solid beige;
 }
+
+/* #cleanBet {
+    display: none;
+  } */

@@ -10,7 +10,9 @@ let player = {
   name: "David",
 };
 
-let chips = [200];  // Inicializar con 200 chips
+// Inicializar con 200 chips o el valor guardado en localStorage
+let chips = [localStorage.getItem('chips') ? parseInt(localStorage.getItem('chips')) : 200];  
+
 let counterEl = document.getElementById("counter-el");
 let counter = 60;  // Tiempo en segundos
 
@@ -19,7 +21,8 @@ setInterval(function() {
   chips[0] += 10;  // Incrementar chips en 10 cada minuto
   playerEl.textContent = player.name + ": £" + chips[0];
   counter = 60;  // Reiniciar el contador a 60 segundos
-}, 60000);  // 60000 milisegundos = 1 minuto
+  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
+}, 1000);  // 60000 milisegundos = 1 minuto  cambiarlo a 60000 cuando este terminado
 
 // Actualizar el contador cada segundo
 setInterval(function() {
@@ -32,38 +35,36 @@ setInterval(function() {
 let playerEl = document.getElementById("player-el");
 playerEl.textContent = player.name + ": £" + chips[0];
 
-function getRandonCard() {
-  let randomNumber = Math.floor(Math.random() * 13) + 1;
-  if (randomNumber > 10) {
-    return 10;
-  } else if (randomNumber === 1) {
-    return 11;
-  } else {
-    return randomNumber;
-  }
+// Función para obtener una carta aleatoria
+function getRandomCard() {
+  let randomIndex = Math.floor(Math.random() * cardDeck.length);
+  return cardDeck[randomIndex];
 }
 
 let betAmount = 0;  // Cantidad actual de la apuesta
 let betSum = document.getElementById("betSum");
 
-function betFive() {
-  if (chips[0] >= 5) {
-    betAmount += 5;
-    chips[0] -= 5;
+function bet(amount) {
+  if (chips[0] >= amount) {
+    betAmount += amount;
+    chips[0] -= amount;
     updateBetDisplay();
+    localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
   } else {
     alert("Not enough chips to place this bet.");
   }
 }
 
-function betTen() {
-  if (chips[0] >= 10) {
-    betAmount += 10;
-    chips[0] -= 10;
-    updateBetDisplay();
-  } else {
-    alert("Not enough chips to place this bet.");
-  }
+function cleanBet() {
+  // Devolver el valor de la apuesta a las fichas del jugador
+  chips[0] += betAmount;
+
+  // Resetear la apuesta a 0
+  betAmount = 0;
+
+  // Actualizar la visualización para mostrar la apuesta eliminada y las fichas actualizadas
+  updateBetDisplay();
+  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
 }
 
 function updateBetDisplay() {
@@ -80,31 +81,37 @@ function winBet() {
   chips[0] += betAmount * 2;  // Ganar las chips apostadas
   betAmount = 0;  // Resetear la apuesta
   updateBetDisplay();
+  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
 }
 
 let hasDrawnCard = false;  // Variable para rastrear si el jugador ha pedido una nueva carta
 
-// Restricción de apuestas adicionales después de la apuesta inicial
 function startGame() {
-  if (betAmount > 0) {  // Verificar si se ha realizado una apuesta
+  if (betAmount > 0) {
     isAlive = true;
     hasBlackJack = false;
-    hasDrawnCard = false;  // Reiniciar la variable de control al iniciar el juego
-    let firstCard = getRandonCard();
-    let secondCard = getRandonCard();
+    hasDrawnCard = false;
+    let firstCard = getRandomCard();
+    let secondCard = getRandomCard();
     cards = [firstCard, secondCard];
-    sum = firstCard + secondCard;
+    sum = firstCard.value + secondCard.value;
 
-    // Dealer cards
-    let firstCardDealer = getRandonCard();
+    let firstCardDealer = getRandomCard();
     dealerCards = [firstCardDealer];
-    sumDealer = firstCardDealer;
+    sumDealer = firstCardDealer.value;
 
-    document.getElementById("doubleBet").style.display = "block";  // Mostrar el botón de doblar apuesta
+    document.getElementById("doubleBet").style.display = "block";
+    document.getElementById("startGame").style.display = "none";
+    
 
-    // Desactivar los botones de apuesta adicional
     document.getElementById("bet-five-btn").disabled = true;
     document.getElementById("bet-ten-btn").disabled = true;
+    document.getElementById("bet-twentyfive-btn").disabled = true;
+    document.getElementById("bet-fifty-btn").disabled = true;
+    document.getElementById("bet-hundred-btn").disabled = true;
+    document.getElementById("bet-twofifty-btn").disabled = true;
+
+    document.getElementById('cleanBet').style.display = 'none';  // Ocultar el botón de limpiar apuesta
 
     renderGame();
     renderGameDealer();
@@ -114,7 +121,14 @@ function startGame() {
 }
 
 function renderGame() {
-  cardsEl.textContent = "Cards: " + cards.join(" ");
+  cardsEl.innerHTML = "Cards: ";
+  for (let card of cards) {
+    let img = document.createElement("img");
+    img.src = card.image;
+    img.style.width = "50px";
+    img.style.height = "70px";
+    cardsEl.appendChild(img);
+  }
   sumEl.textContent = "Sum: " + sum;
   if (sum <= 20) {
     message = "Do You Want another card?";
@@ -122,53 +136,53 @@ function renderGame() {
     message = "Blackjack!";
     hasBlackJack = true;
     isAlive = false;
-    winBet();  // Ganar la apuesta si se obtiene un Blackjack
-    resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
-  } else if (sum > 21) {  // Si el jugador se pasa de 21, el dealer gana automáticamente
+    winBet();
+    resetGameAfterDelay();
+  } else if (sum > 21) {
     message = "You Bust! Dealer Wins!";
     isAlive = false;
-    loseBet();  // Perder la apuesta si se pierde
-    resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
+    loseBet();
+    resetGameAfterDelay();
   }
   messageEl.textContent = message;
 }
 
 function newCard() {
   if (isAlive === true && hasBlackJack === false) {
-    let card = getRandonCard();
-    sum += card;
+    let card = getRandomCard();
+    sum += card.value;
     cards.push(card);
-    hasDrawnCard = true;  // Marcar que el jugador ha pedido una nueva carta
-    document.getElementById("doubleBet").style.display = "none";  // Ocultar el botón de doblar apuesta
+    hasDrawnCard = true;
+    document.getElementById("doubleBet").style.display = "none";
     renderGame();
     if (sum > 21) {
       message = "You Bust! Dealer Wins!";
       isAlive = false;
-      loseBet();  // Perder la apuesta si se pasa de 21
-      resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
+      loseBet();
+      resetGameAfterDelay();
     }
   }
 }
 
 function dealerNewCard() {
   while (sumDealer < 17) {
-    let card = getRandonCard();
+    let card = getRandomCard();
     dealerCards.push(card);
-    sumDealer += card;
+    sumDealer += card.value;
   }
   renderGameDealer();  // Actualizar la visualización del dealer después de añadir una nueva carta
 }
 
 function doubleBet() {
-  stand()
   if (chips[0] >= betAmount && !hasDrawnCard) {  // Solo permitir doblar la apuesta si no se ha pedido una nueva carta
     chips[0] -= betAmount;
     betAmount *= 2;
     updateBetDisplay();
+    localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
 
     // Pedir una nueva carta
-    let card = getRandonCard();
-    sum += card;
+    let card = getRandomCard();
+    sum += card.value;
     cards.push(card);
     hasDrawnCard = true;  // Marcar que el jugador ha pedido una nueva carta
     document.getElementById("doubleBet").style.display = "none";  // Ocultar el botón de doblar apuesta
@@ -184,19 +198,27 @@ function doubleBet() {
   } else {
     alert("Not enough chips to double the bet or you've already drawn a new card.");
   }
+  stand();
 }
 
 // Dealer logic
 let dealerCards = [];
-let cardDel = document.getElementById('cards-dele');
+let cardDel = document.getElementById("cards-dele");
 let messageDealer = document.getElementById("message-dele");
-let playerDealer = document.getElementById('player-dele');
+let playerDealer = document.getElementById("player-dele");
 
 let sumDealer = 0;
 
 function renderGameDealer() {
-  cardDel.textContent = 'Dealer\'s Cards: ' + dealerCards.join(" ");
-  playerDealer.textContent = 'Dealer\'s Sum: ' + sumDealer;
+  cardDel.innerHTML = "Dealer's Cards: ";
+  for (let card of dealerCards) {
+    let img = document.createElement("img");
+    img.src = card.image;
+    img.style.width = "50px";
+    img.style.height = "70px";
+    cardDel.appendChild(img);
+  }
+  playerDealer.textContent = "Dealer's Sum: " + sumDealer;
 
   if (sumDealer > 21) {
     messageDealer.textContent = "Dealer Busted!";
@@ -209,14 +231,14 @@ function renderGameDealer() {
 
 function stand() {
   dealerNewCard();  // El dealer comienza a tomar cartas solo cuando el jugador decide "stand"
-  
+
   // Determinar el ganador
   if (sumDealer > 21) {
     message = "Dealer Busted! You Win!";
     winBet();
   } else if (sum > sumDealer) {
-    message = "You Win!";
-    winBet();
+    message = "You Busted! Dealer Win!";
+    loseBet();
   } else if (sum < sumDealer) {
     message = "Dealer Wins!";
     loseBet();
@@ -247,5 +269,29 @@ function resetGameAfterDelay() {
     // Reactivar los botones de apuesta después de reiniciar el juego
     document.getElementById("bet-five-btn").disabled = false;
     document.getElementById("bet-ten-btn").disabled = false;
+    document.getElementById("bet-twentyfive-btn").disabled = false;
+    document.getElementById("bet-fifty-btn").disabled = false;
+    document.getElementById("bet-hundred-btn").disabled = false;
+    document.getElementById("bet-twofifty-btn").disabled = false;
+    document.getElementById('cleanBet').style.display = 'block';  // Mostrar el botón de limpiar apuesta
+    document.getElementById("startGame").style.display = "block";
   }, 3000);
 }
+
+/// Aqui es donde va a ir toda la funciones de las cartas 
+const cardDeck = [
+  { image: 'img/cartasPoker/card (1).png', value: 2 },
+  { image: 'img/cartasPoker/card (2).png', value: 3 },
+  { image: 'img/cartasPoker/card (3).png', value: 4 },
+  { image: 'img/cartasPoker/card (4).png', value: 5 },
+  { image: 'img/cartasPoker/card (5).png', value: 6 },
+  { image: 'img/cartasPoker/card (6).png', value: 7 },
+  { image: 'img/cartasPoker/card (7).png', value: 8 },
+  { image: 'img/cartasPoker/card (8).png', value: 9 },
+  { image: 'img/cartasPoker/card (9).png', value: 10 },
+  { image: 'img/cartasPoker/card (10).png', value: 10 },
+  { image: 'img/cartasPoker/card (11).png', value: 10 },
+  { image: 'img/cartasPoker/card (12).png', value: 10 },
+  { image: 'img/cartasPoker/card (13).png', value: 11 },
+  // Repite para los otros palos: diamantes, corazones y espadas
+];
