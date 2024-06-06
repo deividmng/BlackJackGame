@@ -10,7 +10,9 @@ let player = {
   name: "David",
 };
 
-let chips = [200];  // Inicializar con 200 chips
+// Inicializar con 200 chips o el valor guardado en localStorage
+let chips = [localStorage.getItem('chips') ? parseInt(localStorage.getItem('chips')) : 200];  
+
 let counterEl = document.getElementById("counter-el");
 let counter = 60;  // Tiempo en segundos
 
@@ -19,7 +21,8 @@ setInterval(function() {
   chips[0] += 10;  // Incrementar chips en 10 cada minuto
   playerEl.textContent = player.name + ": £" + chips[0];
   counter = 60;  // Reiniciar el contador a 60 segundos
-}, 60000);  // 60000 milisegundos = 1 minuto
+  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
+}, 1000);  // 60000 milisegundos = 1 minuto  cambiarlo a 60000 cuando este terminado
 
 // Actualizar el contador cada segundo
 setInterval(function() {
@@ -41,36 +44,27 @@ function getRandomCard() {
 let betAmount = 0;  // Cantidad actual de la apuesta
 let betSum = document.getElementById("betSum");
 
-// function betFive() {
-//   if (chips[0] >= 5) {
-//     betAmount += 5;
-//     chips[0] -= 5;
-//     updateBetDisplay();
-//   } else {
-//     alert("Not enough chips to place this bet.");
-//   }
-// }
-
-// function betTen() {
-//   if (chips[0] >= 10) {
-//     betAmount += 10;
-//     chips[0] -= 10;
-//     updateBetDisplay();
-//   } else {
-//     alert("Not enough chips to place this bet.");
-//   }
-// }
-
-
-
 function bet(amount) {
   if (chips[0] >= amount) {
     betAmount += amount;
     chips[0] -= amount;
     updateBetDisplay();
+    localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
   } else {
     alert("Not enough chips to place this bet.");
   }
+}
+
+function cleanBet() {
+  // Devolver el valor de la apuesta a las fichas del jugador
+  chips[0] += betAmount;
+
+  // Resetear la apuesta a 0
+  betAmount = 0;
+
+  // Actualizar la visualización para mostrar la apuesta eliminada y las fichas actualizadas
+  updateBetDisplay();
+  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
 }
 
 function updateBetDisplay() {
@@ -87,6 +81,7 @@ function winBet() {
   chips[0] += betAmount * 2;  // Ganar las chips apostadas
   betAmount = 0;  // Resetear la apuesta
   updateBetDisplay();
+  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
 }
 
 let hasDrawnCard = false;  // Variable para rastrear si el jugador ha pedido una nueva carta
@@ -106,9 +101,17 @@ function startGame() {
     sumDealer = firstCardDealer.value;
 
     document.getElementById("doubleBet").style.display = "block";
+    document.getElementById("startGame").style.display = "none";
+    
 
     document.getElementById("bet-five-btn").disabled = true;
     document.getElementById("bet-ten-btn").disabled = true;
+    document.getElementById("bet-twentyfive-btn").disabled = true;
+    document.getElementById("bet-fifty-btn").disabled = true;
+    document.getElementById("bet-hundred-btn").disabled = true;
+    document.getElementById("bet-twofifty-btn").disabled = true;
+
+    document.getElementById('cleanBet').style.display = 'none';  // Ocultar el botón de limpiar apuesta
 
     renderGame();
     renderGameDealer();
@@ -175,6 +178,7 @@ function doubleBet() {
     chips[0] -= betAmount;
     betAmount *= 2;
     updateBetDisplay();
+    localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
 
     // Pedir una nueva carta
     let card = getRandomCard();
@@ -265,11 +269,16 @@ function resetGameAfterDelay() {
     // Reactivar los botones de apuesta después de reiniciar el juego
     document.getElementById("bet-five-btn").disabled = false;
     document.getElementById("bet-ten-btn").disabled = false;
+    document.getElementById("bet-twentyfive-btn").disabled = false;
+    document.getElementById("bet-fifty-btn").disabled = false;
+    document.getElementById("bet-hundred-btn").disabled = false;
+    document.getElementById("bet-twofifty-btn").disabled = false;
+    document.getElementById('cleanBet').style.display = 'block';  // Mostrar el botón de limpiar apuesta
+    document.getElementById("startGame").style.display = "block";
   }, 3000);
 }
 
-/// aqui es donde va a ir toda la funciones de las cartas 
-
+/// Aqui es donde va a ir toda la funciones de las cartas 
 const cardDeck = [
   { image: 'img/cartasPoker/card (1).png', value: 2 },
   { image: 'img/cartasPoker/card (2).png', value: 3 },
