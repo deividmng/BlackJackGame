@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>BlackJack</h1>
+<bodye>
 
+
+  
+  <header>
+    <p id="player-el">David: £200</p>
+    <p> 0 - 10</p>
+  </header> 
+    
   <section id="dealer">
     <p id="cards-dele">Dealer's Cards:</p>
     <p id="message-dele">Dealer's message will appear here</p>
@@ -23,16 +29,19 @@
   <button id="stand" onclick="stand()">STAND</button>
   <button id="doubleBet" onclick="doubleBet()" style="display:none;">DOUBLE BET</button>
 
-  <p id="player-el">David: £200</p>
 
   <p id="betSum">Bet Sum: 0</p>
 
-  <button id="bet-five-btn" onclick="betFive()">Bet £5</button>
-   <button id="bet-ten-btn" onclick="betTen()">Bet £10</button>
+  <button id="bet-five-btn" onclick="bet(5)">Bet £5</button>
+  <button id="bet-ten-btn" onclick="bet(10)">Bet £10</button>
+  <button id="bet-twentyfive-btn" onclick="bet(25)">Bet £25</button>
+  <button id="bet-fifty-btn" onclick="bet(50)">Bet £50</button>
+  <button id="bet-hundred-btn" onclick="bet(100)">Bet £100</button>
+  <button id="bet-twofifty-btn" onclick="bet(250)">Bet £250</button>
   
 
   <p id="counter-el">Next chips in: 60s</p> <!-- Contador de tiempo -->
 
   <script src="index.js"></script>
-</body>
+</bodye>
 </html>
