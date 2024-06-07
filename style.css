@@ -41,6 +41,284 @@ p {
     border: 2px solid beige;
 }
 
-/* #cleanBet {
-    display: none;
-  } */
+
+
+  button {
+    cursor: pointer;
+   
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+
+
+  /* Imagen dentro del botón con efecto colorido */
+#bet-five-btn,
+#bet-ten-btn,
+#bet-twentyfive-btn,
+#bet-fifty-btn,
+#bet-hundred-btn,
+#bet-twofifty-btn {
+    width: 50px;  /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 50px;  /* Ajusta el tamaño de la imagen según sea necesario */
+    cursor: pointer;  /* Cambia el cursor al pasar sobre la imagen */
+    filter: saturate(2);  /* Aumenta la saturación de la imagen para hacerla más colorida */
+    transition: transform 0.3s, filter 0.3s;  /* Añade una transición suave para el efecto */
+}
+
+/* Efecto al pasar el ratón por encima */
+#bet-five-btn:hover {
+    filter: saturate(3);  /* Aumenta la saturación al pasar el ratón por encima */
+    transform: rotate(360deg) scale(1.1);  /* Realiza un giro de 360 grados y agranda la imagen al pasar el ratón por encima */
+}
+
+#bet-ten-btn:hover {
+    filter: saturate(23);  /* Aumenta la saturación al pasar el ratón por encima */
+    transform: rotate(360deg) scale(1.1);  /* Realiza un giro de 360 grados y agranda la imagen al pasar el ratón por encima */
+}
+
+#bet-twentyfive-btn:hover {
+    filter: saturate(53);  /* Aumenta la saturación al pasar el ratón por encima */
+    transform: rotate(360deg) scale(1.1);  /* Realiza un giro de 360 grados y agranda la imagen al pasar el ratón por encima */
+}
+
+#bet-fifty-btn:hover {
+    filter: saturate(96);  /* Aumenta la saturación al pasar el ratón por encima */
+    transform: rotate(360deg) scale(1.1);  /* Realiza un giro de 360 grados y agranda la imagen al pasar el ratón por encima */
+}
+
+#bet-hundred-btn:hover {
+    filter: saturate(111);  /* Aumenta la saturación al pasar el ratón por encima */
+    transform: rotate(360deg) scale(1.1);  /* Realiza un giro de 360 grados y agranda la imagen al pasar el ratón por encima */
+}
+
+#bet-twofifty-btn:hover {
+    filter: saturate(188);  /* Aumenta la saturación al pasar el ratón por encima */
+    transform: rotate(360deg) scale(1.1);  /* Realiza un giro de 360 grados y agranda la imagen al pasar el ratón por encima */
+}
+
+
+
+
+
+/* Estilos para el contenedor de la imagen y el número */
+.bet-button {
+    position: relative;
+    display: inline-block;
+    width: 50px;  /* Ajusta el tamaño según sea necesario */
+    height: 50px;  /* Ajusta el tamaño según sea necesario */
+    cursor: pointer;  /* Cambia el cursor al pasar sobre el contenedor */
+    margin: 5px;  /* Espaciado entre los botones */
+}
+
+.bet-button img {
+    width: 100%;
+    height: 100%;
+    filter: saturate(2);  /* Aumenta la saturación de la imagen para hacerla más colorida */
+    transition: transform 0.3s, filter 0.3s;  /* Añade una transición suave para el efecto */
+}
+
+.bet-button span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  /* Centra el número */
+    color: black;  /* Color del texto */
+    font-weight: bold;  /* Negrita para el texto */
+    font-size: 18px;  /* Tamaño de la fuente */
+}
+
+
+
+#bet-five-btn span {
+    color: rgb(72, 159, 25); /* Color para la apuesta de 5 */
+}
+
+#bet-ten-btn span {
+    color: rgb(25, 72, 159); /* Color para la apuesta de 10 */
+}
+
+#bet-twentyfive-btn span {
+    color: rgb(122, 11, 50); /* Color para la apuesta de 25 */
+}
+
+#bet-fifty-btn span {
+    color: rgb(255, 0, 0); /* Color para la apuesta de 50 */
+}
+
+#bet-hundred-btn span {
+    color: rgb(0, 255, 0); /* Color para la apuesta de 100 */
+}
+
+#bet-twofifty-btn span {
+    color: rgb(0, 0, 255); /* Color para la apuesta de 250 */
+}
+
+
+/* Efecto al pasar el ratón por encima */
+.bet-button:hover img {
+    transform: scale(1.1);  /* Agranda la imagen al pasar el ratón por encima */
+    filter: saturate(3);  /* Aumenta aún más la saturación cuando el ratón está sobre la imagen */
+}
+
+
+
+.all-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Asegura que los botones se envuelvan si el espacio es insuficiente */
+    
+  }
+  
+  .button-group {
+    margin-right: 20px; /* Espacio entre el grupo de botones y los otros botones */
+  }
+
+  
+.all-buttons button{
+ 
+    margin-left: 10px;
+    
+  }
+  
+
+
+
+
+
+  #img-chips {
+    position: relative;
+  
+}
+/* 
+#betContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+} */
+
+#betSum {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    color: red;
+    font-weight: bold;  /* Negrita para el texto */
+    font-size: 18px;  /* Tamaño de la fuente */
+}
+
+
+
+/*  la de las apuestas */
+@keyframes rotateCard {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(180deg);
+    }
+  }
+  
+  .rotate {
+    animation: rotateCard 0.5s forwards;
+  }
+  
+
+
+
+
+  @keyframes chipBet {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fade {
+    animation: chipBet 0.5s forwards;
+  }
+  
+
+
+  @keyframes moveLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100px); /* Ajusta esta distancia según sea necesario */
+    }
+  }
+  
+  /* .move-left {
+    animation: moveLeft 0.5s forwards;
+  }
+   */
+
+/*  */
+
+  @keyframes moveToTopLeft {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-25vw, -25vh) scale(1); /* Curvatura */
+    }
+    100% {
+      transform: translate(-50vw, -50vh) scale(1); /* Mover a la esquina superior izquierda */
+    }
+  }
+  
+  @keyframes growBigger {
+    0% {
+      transform: translate(-50vw, -50vh) scale(1);
+    }
+    100% {
+      transform: translate(-50vw, -50vh) scale(1.5); /* Aumentar tamaño en la esquina superior izquierda */
+    }
+  }
+  
+  @keyframes moveBack {
+    0% {
+      transform: translate(-50vw, -50vh) scale(1.5);
+    }
+    100% {
+      transform: translate(0, 0) scale(1); /* Volver a la posición original */
+    }
+  }
+  
+  .move-to-top-left {
+    animation: moveToTopLeft 1s forwards; /* Ajustar la duración según sea necesario */
+  }
+  
+  .grow-bigger {
+    animation: growBigger 0.5s forwards; /* Ajustar la duración según sea necesario */
+  }
+  
+  .move-back {
+    animation: moveBack 1s forwards; /* Ajustar la duración según sea necesario */
+  }
+  
+  .no-transition {
+    transition: none; /* Desactivar transición para el regreso instantáneo */
+  }
+
+
+  /* Define the keyframe for color change */
+  /* la parte de cuando pierdo*/
+@keyframes colorChange3 {
+    from { visibility: visible; }
+    to { visibility: hidden; }
+  }
+  
+  /* Class to apply the color change animation */
+  .visiblilityNumber {
+    animation: colorChange3 0.1s forwards; /* Change duration as needed */
+  }
+  
