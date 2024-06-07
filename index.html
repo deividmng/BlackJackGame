@@ -24,27 +24,74 @@
   <p id="cards-el">Your Cards:</p>
   <p id="sum-el">Your Sum:</p>
 
-  <button id="startGame" onclick="startGame()">Start Game</button>
-  <button id="cleanBet" onclick="cleanBet()">Clean Bet</button>
 
+  <section class="all-buttons">
 
-  <button id="newCard" onclick="newCard()">NEW CARD</button>
-  <button id="stand" onclick="stand()">STAND</button>
-  <button id="doubleBet" onclick="doubleBet()" style="display:none;">DOUBLE BET</button>
-
-
-  <p id="betSum">Bet Sum: 0</p>
-
-  <button id="bet-five-btn" onclick="bet(5)">Bet £5</button>
-  <button id="bet-ten-btn" onclick="bet(10)">Bet £10</button>
-  <button id="bet-twentyfive-btn" onclick="bet(25)">Bet £25</button>
-  <button id="bet-fifty-btn" onclick="bet(50)">Bet £50</button>
-  <button id="bet-hundred-btn" onclick="bet(100)">Bet £100</button>
-  <button id="bet-twofifty-btn" onclick="bet(250)">Bet £250</button>
+    <div class="button-group">
+      <button id="startGame" onclick="startGame()">Start Game</button>
+      <button id="cleanBet" onclick="cleanBet()">Clean Bet</button>
+    </div>
+    
+    <button id="newCard" onclick="newCard()">NEW CARD</button>
+    <button id="stand" onclick="stand()">STAND</button>
+    <button id="doubleBet" onclick="doubleBet()" style="display:none;">DOUBLE BET</button>
+  </section>
   
 
-  <p id="counter-el">Next chips in: 60s</p> <!-- Contador de tiempo -->
 
+  <div id="img-chips" >
+
+  </div>
+  <!-- <p  id="betSum">Bet Sum: 0  </p> -->
+
+  <!-- <div id="img-chips">
+    <p id="betSum">
+      Bet Sum: 0
+      <img id="betImage" src="/img/chip.png" alt="Bet Image">
+    </p>
+  </div>
+   -->
+   <div id="img-chips">
+    <div id="betContainer">
+        <img id="betImage" src="/img/chip.png" alt="Bet Image">
+        <p id="betSum"> 0</p>
+    </div>
+</div>
+
+
+
+<section id="bet-buttons">
+
+  <div class="bet-button" id="bet-five-btn" onclick="bet(5)">
+    <img src="./img/chip.png" alt="Bet 5">
+    <span>5</span>
+  </div>
+  <div class="bet-button " id="bet-ten-btn" onclick="bet(10)">
+    <img src="./img/chip.png" alt="Bet 10">
+    <span>10</span>
+  </div>
+  <div class="bet-button" id="bet-twentyfive-btn" onclick="bet(25)">
+    <img src="./img/chip.png" alt="Bet 25">
+    <span>25</span>
+  </div>
+  <div class="bet-button" id="bet-fifty-btn" onclick="bet(50)">
+    <img src="./img/chip.png" alt="Bet 50">
+    <span>50</span>
+  </div>
+  <div class="bet-button" id="bet-hundred-btn" onclick="bet(100)">
+    <img src="./img/chip.png" alt="Bet 100">
+    <span>100</span>
+  </div>
+  <div class="bet-button" id="bet-twofifty-btn" onclick="bet(250)">
+    <img src="./img/chip.png" alt="Bet 250">
+    <span>250</span>
+  </div>
+</section>
+  
+  
+  
+  <p id="counter-el">Next chips in: 60s</p> <!-- Contador de tiempo -->
+  
   <script src="index.js"></script>
 </bodye>
 </html>
