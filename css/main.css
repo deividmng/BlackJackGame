@@ -1,0 +1,65 @@
+@import url('/css/bet.css');
+@import url('/css/winBet.css');
+@import url('/css/clenaBet.css');
+@import url('/css/loseBet.css');
+@import url('/css/messageWin.css');
+
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 0 20px;
+  }
+
+  body {
+    background-image: url(/img/Screenshot\ 2024-06-04\ 212254.png);
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajustar la imagen al tamaño del cuerpo */
+    text-align: center;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+    font-size: 42px;
+}
+
+p {
+    color: white;
+  
+}
+
+#startGame {
+    background-color: goldenrod;
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 5px;
+    font-size: bold;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+
+
+#dealer {
+    background-color: rgb(23, 62, 96);
+    border: 2px solid beige;
+}
+
+
+
+  button {
+    cursor: pointer;
+   
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+
+
+  
