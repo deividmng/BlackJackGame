@@ -3,6 +3,7 @@
 @import url('/css/clenaBet.css');
 @import url('/css/loseBet.css');
 @import url('/css/messageWin.css');
+@import url('/css/PlaceBet.css');
 
 
 
@@ -20,11 +21,11 @@ header {
     text-align: center;
 }
 
-h1 {
+/* h1 {
     color: red;
     text-align: center;
     font-size: 42px;
-}
+} */
 
 p {
     color: white;
@@ -41,6 +42,7 @@ p {
     font-weight: bold;
     border: none;
     border-radius: 10px;
+    margin-right: 10px;
 }
 
 
@@ -62,4 +64,17 @@ p {
   }
 
 
+  /* aqui van las transiciones para hacer que empiece el juego */
+/* 
+  #button-group {
+    
+  }
+ */
+
+
+ .startGamePricipal {
   
+  opacity: 0; /* Initial opacity of 1 */
+  transition: opacity 2s ease-in-out; /* Transition for opacity change */
+}
+

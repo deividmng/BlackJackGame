@@ -7,7 +7,7 @@ let messageEl = document.getElementById("message-el");
 let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
 
-// para que no se vean lo botonos al principio
+// para que no se vean lo botonos al principio la de nercar stand i
 
 document.getElementById("newCard").style.display = "none";
 document.getElementById("stand").style.display = "none"; 
@@ -51,19 +51,42 @@ function getRandomCard() {
 let betAmount = 0;  // Cantidad actual de la apuesta
 let betSum = document.getElementById("betSum");
 
+startGamePricipal.classList.add("startGamePricipal"); // Agregar la clase de animación
+PlaceBet.classList.add('PlaceBet')
+
+
 function bet(amount) {
   if (chips[0] >= amount) {
     betAmount += amount;
     chips[0] -= amount;
     updateBetDisplay();
     updateBetImageColor();
-    betSum.classList.remove("visiblilityNumber"); // Reset text color after animation
-    //chipMove(); // Llamar a chipMove para aplicar la animación
-    betImage.classList.remove("spinAndDisappear"); // Agregar la clase de animación
+    betSum.classList.remove("visiblilityNumber"); // Reset text color (if applicable)
+    //chipMove(); // Call chipMove for animation (if applicable)
+  // Apply the transition effect
+  const PlaceBet = document.querySelector('.PlaceBet');
+  PlaceBet.classList.add('PlaceBetOut');
+
+  // Set display: none after the transition ends
+  PlaceBet.addEventListener('transitionend', () => {
+    PlaceBet.style.display = 'none';
+  }, { once: true });
     
-    localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
+    betImage.classList.remove("spinAndDisappear"); // Remove other animations (if applicable)
+
+    // Show the "Start Game" button with smooth opacity change
+    const startGameElement = document.getElementById("startGamePricipal");
+    startGameElement.style.opacity = 3; // Set opacity to 0.3 on click
+    // startGameElement.display = block; // Set opacity to 0.3 on click
+
+    
+    // PlaceBetclassList.remove("spinAndDisappear");
+
+    // Apply the same transition as starGamePricipal
+    // startGameElement.classList.add("fade-in"); // Add a class for the transition
+
+    localStorage.setItem('chips', chips[0]);
   } else {
-    
     toastr.error('Not enough chips to place this bet');
   }
 }
@@ -279,10 +302,10 @@ function stand() {
     message = "Dealer Busted! You Win!";
     winBet();
   } else if (sum > sumDealer) {
-    message  = "You Busted! Dealer Win!";
+    message = "You Busted! Dealer Win!";
     loseBet();
   } else if (sum < sumDealer) {
-    message  = "Dealer Wins!";
+    message = "Dealer Wins!";
     loseBet();
   } else {
     message = "It's a tie!";

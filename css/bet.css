@@ -114,11 +114,17 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap; /* Asegura que los botones se envuelvan si el espacio es insuficiente */
+    margin-bottom: 20px;
     
   }
   
   .button-group {
     margin-right: 20px; /* Espacio entre el grupo de botones y los otros botones */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Asegura que los botones se envuelvan si el espacio es insuficiente */
+
   }
 
   
@@ -146,12 +152,12 @@
 
 #betSum {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
     padding: 0;
-    color: red;
+    color: rgb(107, 61, 61);
     font-weight: bold;  /* Negrita para el texto */
     font-size: 18px;  /* Tamaño de la fuente */
 }
@@ -255,7 +261,7 @@
 
 
 
-  /* para que el el color se vea o no */
+  /* para que el el color se vea o no*/
 @keyframes colorChange3 {
     from { visibility: visible; }
     to { visibility: hidden; }
