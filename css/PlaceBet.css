@@ -39,9 +39,8 @@
 
 
   .PlaceBet {
-    position: absolute;
-    top: 50%; /* Center vertically */
-    left: 43%; /* Center horizontally */
+    position: relative;
+    
     transform: translate(-50%, -50%); /* Center the element exactly in the middle */
     display: block;
     opacity: 1;
@@ -49,7 +48,8 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     transition: opacity 2s ease-in-out;
     font-size: 30px;
-    line-height: 2px;
+  
+  
   }
   
   .PlaceBetOut {

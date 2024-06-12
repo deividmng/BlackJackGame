@@ -85,6 +85,7 @@ function bet(amount) {
     // Apply the same transition as starGamePricipal
     // startGameElement.classList.add("fade-in"); // Add a class for the transition
 
+  
     localStorage.setItem('chips', chips[0]);
   } else {
     toastr.error('Not enough chips to place this bet');
@@ -179,17 +180,28 @@ function startGame() {
   }
 }
 function renderGame() {
-  cardsEl.innerHTML = "Cards: ";
+  cardsEl.innerHTML = ""; // Clear previous cards
+  let cardOffset = 0; // Offset for stacking cards
+
   for (let card of cards) {
     let img = document.createElement("img");
     img.src = card.image;
     img.style.width = "50px";
     img.style.height = "70px";
-    // aqui estamos anadiendo el efecto de las cartas 
-    img.classList.add("rotate"); // Agregar la clase de rotación
+    img.style.top = `0px`;
+    img.style.left = `${cardOffset}px`; // Set the initial position
+    img.style.transform = `translate(${cardOffset}px, 0px)`; // Apply the translation
+
+    // Add the animation class
+    img.classList.add("dropFromTopRight");
+
+    // Append the card to the container
     cardsEl.appendChild(img);
+
+    cardOffset += 30; // Adjust this value for more or less overlap
   }
   sumEl.textContent = "Sum: " + sum;
+
   if (sum <= 20) {
     message = "Do You Want another card?";
   } else if (sum === 21) {
@@ -208,28 +220,58 @@ function renderGame() {
 }
 
 
+
 function newCard() {
   if (isAlive === true && hasBlackJack === false) {
     let card = getRandomCard();
-    sum += card.value;
+    sum += card.value; // Sumar el valor de la nueva carta a la suma total
     cards.push(card);
     hasDrawnCard = true;
-    document.getElementById("doubleBet").style.display = "none";
-    renderGame();
+    let lastCard = cards[cards.length - 1];
+    let img = document.createElement("img");
+    img.src = lastCard.image;
+    img.style.width = "50px";
+    img.style.height = "70px";
+    img.style.top = `0px`;
+    img.style.left = `${(cards.length - 1) * 30}px`; // Ajustar la posición de acuerdo con la cantidad de cartas
+    img.style.transform = `translate(${(cards.length - 1) * 30}px, 0px)`; // Aplicar la traslación
+    img.classList.add("dropFromTopRight"); // Agregar la clase de animación
+    cardsEl.appendChild(img); // Agregar la nueva carta al contenedor de cartas
+    sumEl.textContent = "Sum: " + sum;
+
     if (sum > 21) {
       message = "You Bust! Dealer Wins!";
       isAlive = false;
       loseBet();
       resetGameAfterDelay();
+    } 
+    if (sum <= 20) {
+      message = "Do You Want another card?";
+    } else if (sum === 21) {
+      message = "Blackjack!";
+      hasBlackJack = true;
+      isAlive = false;
+      winBet();
+      resetGameAfterDelay();
+    } else if (sum > 21) {
+      message = "You Bust! Dealer Wins!";
+      isAlive = false;
+      loseBet();
+      resetGameAfterDelay();
     }
+    messageEl.textContent = message;
   }
 }
+
+
+
 
 function dealerNewCard() {
   while (sumDealer < 17) {
     let card = getRandomCard();
     dealerCards.push(card);
     sumDealer += card.value;
+    
     
   }
   renderGameDealer();  // Actualizar la visualización del dealer después de añadir una nueva carta
@@ -272,17 +314,28 @@ let messageDealer = document.getElementById("message-dele");
 let playerDealer = document.getElementById("player-dele");
 
 let sumDealer = 0;
-
 function renderGameDealer() {
-  cardDel.innerHTML = "Dealer's Cards: ";
+  cardDel.innerHTML = "";
+  let cardOffset = 0; // Offset for stacking cards
+
   for (let card of dealerCards) {
     let img = document.createElement("img");
     img.src = card.image;
     img.style.width = "50px";
     img.style.height = "70px";
+    img.style.top = `0px`;
+    img.style.left = `${cardOffset}px`; // Set the initial position
+    img.style.transform = `translate(${cardOffset}px, 0px)`; // Apply the translation
+
+    // Add the animation class
+    img.classList.add("dropFromTopRight");
+
+    // Append the card to the container
     cardDel.appendChild(img);
-    img.classList.add("rotate"); // Agregar la clase de rotación
+
+    cardOffset += 30; // Adjust this value for more or less overlap
   }
+  
   playerDealer.textContent = "Dealer's Sum: " + sumDealer;
 
   if (sumDealer > 21) {
@@ -339,7 +392,7 @@ function resetGameAfterDelay() {
     document.getElementById('cleanBet').style.display = 'block';  // Mostrar el botón de limpiar apuesta
     document.getElementById("startGame").style.display = "block";
     
-  }, 3000);
+  }, 333000);
 }
 
 
