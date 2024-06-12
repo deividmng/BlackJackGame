@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
-<bodye>
-
-
-  
+<body>
   <header>
-    <p id="player-el">David: £200</p>
-    <p> 0 - 10</p>
+    <div class="coins">
+      <p id="player-el">David: £200</p>
+      <p>0 - 10</p>
+    </div>
   </header> 
     
   <section id="dealer">
@@ -24,74 +24,77 @@
   <p id="cards-el">Your Cards:</p>
   <p id="sum-el">Your Sum:</p>
 
-
   <section class="all-buttons">
-
-    <div class="button-group">
-      <button id="startGame" onclick="startGame()">Start Game</button>
-      <button id="cleanBet" onclick="cleanBet()">Clean Bet</button>
-    </div>
-    
+  
     <button id="newCard" onclick="newCard()">NEW CARD</button>
     <button id="stand" onclick="stand()">STAND</button>
     <button id="doubleBet" onclick="doubleBet()" style="display:none;">DOUBLE BET</button>
   </section>
-  
 
 
-  <div id="img-chips" >
 
-  </div>
-  <!-- <p  id="betSum">Bet Sum: 0  </p> -->
-
-  <!-- <div id="img-chips">
-    <p id="betSum">
-      Bet Sum: 0
-      <img id="betImage" src="/img/chip.png" alt="Bet Image">
-    </p>
-  </div>
-   -->
-   <div id="img-chips">
-    <div id="betContainer">
-        <img id="betImage" src="/img/chip.png" alt="Bet Image">
-        <p id="betSum"> 0</p>
+  <h1 id="PlaceBet" class="PlaceBet">Place Your Bet </h1>
+  <div id="startGamePricipal" class="startGamePricipal">
+    <div class="button-group">
+      <button id="startGame" onclick="startGame()">Start Game</button>
+      <button id="cleanBet" onclick="cleanBet()">Clean Bet</button>
     </div>
-</div>
+    <div id="img-chips">
+      <div id="betContainer">
+        
+        <img id="betImage" src="/img/chip.png" alt="Bet Image">
+        <p id="betSum">0</p>
+      </div>
+    </div>
+  </div>
+  
+  <section id="bet-buttons" >
+    <div class="allArrows">
 
+      <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
+      <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg"class="add5px" alt="Additional Image">
+      <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
+      <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
+      <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
+      <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
+    
+    </div>
 
-
-<section id="bet-buttons">
-
-  <div class="bet-button" id="bet-five-btn" onclick="bet(5)">
-    <img src="./img/chip.png" alt="Bet 5">
-    <span>5</span>
-  </div>
-  <div class="bet-button " id="bet-ten-btn" onclick="bet(10)">
-    <img src="./img/chip.png" alt="Bet 10">
-    <span>10</span>
-  </div>
-  <div class="bet-button" id="bet-twentyfive-btn" onclick="bet(25)">
-    <img src="./img/chip.png" alt="Bet 25">
-    <span>25</span>
-  </div>
-  <div class="bet-button" id="bet-fifty-btn" onclick="bet(50)">
-    <img src="./img/chip.png" alt="Bet 50">
-    <span>50</span>
-  </div>
-  <div class="bet-button" id="bet-hundred-btn" onclick="bet(100)">
-    <img src="./img/chip.png" alt="Bet 100">
-    <span>100</span>
-  </div>
-  <div class="bet-button" id="bet-twofifty-btn" onclick="bet(250)">
-    <img src="./img/chip.png" alt="Bet 250">
-    <span>250</span>
-  </div>
-</section>
+   
+    <div class="bet-button" id="bet-five-btn" onclick="bet(5)">
+      
+      <img src="./img/chip.png" alt="Bet 5">
+      <span>5</span>
+    </div>
+    <div class="bet-button" id="bet-ten-btn" onclick="bet(10)">
+      <img src="./img/chip.png" alt="Bet 10">
+      <span>10</span>
+    </div>
+    <div class="bet-button" id="bet-twentyfive-btn" onclick="bet(25)">
+      <img src="./img/chip.png" alt="Bet 25">
+      <span>25</span>
+    </div>
+    <div class="bet-button" id="bet-fifty-btn" onclick="bet(50)">
+      <img src="./img/chip.png" alt="Bet 50">
+      <span>50</span>
+    </div>
+    <div class="bet-button" id="bet-hundred-btn" onclick="bet(100)">
+      <img src="./img/chip.png" alt="Bet 100">
+      <span>100</span>
+    </div>
+    <div class="bet-button" id="bet-twofifty-btn" onclick="bet(250)">
+      <img src="./img/chip.png" alt="Bet 250">
+      <span>250</span>
+    </div>
+  </section>
   
   
-  
-  <p id="counter-el">Next chips in: 60s</p> <!-- Contador de tiempo -->
-  
-  <script src="index.js"></script>
-</bodye>
+
+  <p id="counter-el">Next chips in: 60s</p>
+
+  <script  src="main.mjs"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
 </html>

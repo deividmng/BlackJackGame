@@ -1,0 +1,70 @@
+@keyframes moveUP {
+    0% {
+      transform: translate(0, 0); /* Start at original position */
+    }
+    50% {
+      transform: translate(0, -10px); /* Move up 10px (adjust as needed) */
+    }
+    100% {
+      transform: translate(0, 0); /* Move back to original position */
+    }
+  }
+  
+  .allArrows img {
+    margin-right: 28px;
+    max-width: 30px;
+    max-height: 30px;
+    animation: moveUP 2s infinite alternate; /* Adjust duration as needed */
+    
+  }
+
+
+  .PlaceBet {
+    animation: moveUP 2s infinite alternate;
+  }
+  .allArrows  {
+   margin-left: 22px;
+   
+  }
+  
+
+  .add5px {
+    margin-left: 3px
+  }
+
+
+
+  /* el h1 */
+
+
+
+  .PlaceBet {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 43%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the element exactly in the middle */
+    display: block;
+    opacity: 1;
+    color: wheat;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: opacity 2s ease-in-out;
+    font-size: 30px;
+    line-height: 2px;
+  }
+  
+  .PlaceBetOut {
+    animation: fadeOutUp 2s forwards;
+    font-size: 30px;
+  }
+  
+  @keyframes fadeOutUp {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px); /* Adjust this value as needed */
+    }
+  }
+  

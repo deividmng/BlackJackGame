@@ -1,3 +1,4 @@
+
 let cards = [];
 let hasBlackJack = false;
 let isAlive = false;
@@ -6,7 +7,7 @@ let messageEl = document.getElementById("message-el");
 let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
 
-// para que no se vean lo botonos al principio
+// para que no se vean lo botonos al principio la de nercar stand i
 
 document.getElementById("newCard").style.display = "none";
 document.getElementById("stand").style.display = "none"; 
@@ -14,6 +15,7 @@ document.getElementById("stand").style.display = "none";
 let player = {
   name: "David",
 };
+
 
 // Inicializar con 200 chips o el valor guardado en localStorage
 let chips = [localStorage.getItem('chips') ? parseInt(localStorage.getItem('chips')) : 200];  
@@ -27,7 +29,7 @@ setInterval(function() {
   playerEl.textContent = player.name + ": £" + chips[0];
   counter = 60;  // Reiniciar el contador a 60 segundos
   localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
-}, 1000000);  // 60000 milisegundos = 1 minuto  cambiarlo a 60000 cuando este terminado
+}, 60000);  // 60000 milisegundos = 1 minuto  cambiarlo a 60000 cuando este terminado
 
 // Actualizar el contador cada segundo
 setInterval(function() {
@@ -49,17 +51,43 @@ function getRandomCard() {
 let betAmount = 0;  // Cantidad actual de la apuesta
 let betSum = document.getElementById("betSum");
 
+startGamePricipal.classList.add("startGamePricipal"); // Agregar la clase de animación
+PlaceBet.classList.add('PlaceBet')
+
+
 function bet(amount) {
   if (chips[0] >= amount) {
     betAmount += amount;
     chips[0] -= amount;
     updateBetDisplay();
     updateBetImageColor();
-    chipMove(); // Llamar a chipMove para aplicar la animación
+    betSum.classList.remove("visiblilityNumber"); // Reset text color (if applicable)
+    //chipMove(); // Call chipMove for animation (if applicable)
+  // Apply the transition effect
+  const PlaceBet = document.querySelector('.PlaceBet');
+  PlaceBet.classList.add('PlaceBetOut');
+
+  // Set display: none after the transition ends
+  PlaceBet.addEventListener('transitionend', () => {
+    PlaceBet.style.display = 'none';
+  }, { once: true });
     
-    localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
+    betImage.classList.remove("spinAndDisappear"); // Remove other animations (if applicable)
+
+    // Show the "Start Game" button with smooth opacity change
+    const startGameElement = document.getElementById("startGamePricipal");
+    startGameElement.style.opacity = 3; // Set opacity to 0.3 on click
+    // startGameElement.display = block; // Set opacity to 0.3 on click
+
+    
+    // PlaceBetclassList.remove("spinAndDisappear");
+
+    // Apply the same transition as starGamePricipal
+    // startGameElement.classList.add("fade-in"); // Add a class for the transition
+
+    localStorage.setItem('chips', chips[0]);
   } else {
-    alert("Not enough chips to place this bet.");
+    toastr.error('Not enough chips to place this bet');
   }
 }
 
@@ -82,7 +110,14 @@ function cleanBet() {
   // Actualizar la visualización para mostrar la apuesta eliminada y las fichas actualizadas
   inicialColor()
   updateBetDisplay();
+  betSum.classList.add("visiblilityNumber"); // Reset text color after animation
   localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
+
+  betImage.classList.add("spinAndDisappear"); // Agregar la clase de animación
+  // betImage.classList.add("moveBackUp"); // Agregar la clase de animación
+
+
+  
 }
 
 function updateBetDisplay() {
@@ -95,37 +130,8 @@ function updateBetDisplay() {
 function loseBet() {
   betAmount = 0;  // Resetear la apuesta
   updateBetDisplay();
-  betImage.classList.add("move-to-top-left"); // Agregar la clase de animación
-  betSum.classList.add("visiblilityNumber"); // Cambiar el color del texto a negro
+  loseBetEfect()
 
-  // Después de que la animación termine, hacer que el elemento crezca más grande
-  setTimeout(() => {
-    betImage.classList.remove("move-to-top-left"); // Quitar la clase de la primera animación
-    betImage.classList.add("grow-bigger"); // Añadir la clase para agrandarse
-
-    // Después de que se agrande, volver a la posición original
-    setTimeout(() => {
-      betImage.classList.remove("grow-bigger"); // Quitar la clase de agrandamiento
-      betImage.classList.add("move-back"); // Añadir la clase para volver a la posición original
-
-      // Remover la clase move-back después de la animación
-      setTimeout(() => {
-        betImage.classList.remove("move-back");
-
-        // Ocultar la imagen al establecer su opacidad en 0
-        betImage.style.opacity = "0";
-
-        // Después de un breve retraso, hacer que la imagen aparezca gradualmente aumentando su opacidad de 0 a 1
-        setTimeout(() => {
-          betImage.style.transition = "opacity 2s"; // Agregar una transición de opacidad
-          betImage.style.opacity = "1"; // Aumentar la opacidad gradualmente
-          animationApplied = false; // Permitir que la animación se pueda aplicar nuevamente
-          betSum.classList.remove("visiblilityNumber"); // Reset text color after animation
-        }, 1000); // El retraso debe ser menor que la duración de la transición (0.5s en este caso)
-        
-      }, 10); // La duración debe coincidir con la duración de la animación moveBack (1s en este caso)
-    }, 500); // La duración debe coincidir con la duración de la animación growBigger (0.5s en este caso)
-  }, 1000); // La duración debe coincidir con la duración de la animación moveToTopLeft (1s en este caso)
 }
 
 function winBet() {
@@ -133,6 +139,9 @@ function winBet() {
   betAmount = 0;  // Resetear la apuesta
   updateBetDisplay();
   localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
+  winBetEfect() 
+
+  
 }
 
 let hasDrawnCard = false;  // Variable para rastrear si el jugador ha pedido una nueva carta
@@ -157,21 +166,16 @@ function startGame() {
     document.getElementById("newCard").style.display = "block";
     document.getElementById("stand").style.display = "block";
     document.getElementById("bet-buttons").style.display = "none";
+    betImage.classList.remove("spinAndDisappear"); // Agregar la clase de animación
     
-
-    // document.getElementById("bet-five-btn").disabled = true;
-    // document.getElementById("bet-ten-btn").disabled = true;
-    // document.getElementById("bet-twentyfive-btn").disabled = true;
-    // document.getElementById("bet-fifty-btn").disabled = true;
-    // document.getElementById("bet-hundred-btn").disabled = true;
-    // document.getElementById("bet-twofifty-btn").disabled = true;
 
     document.getElementById('cleanBet').style.display = 'none';  // Ocultar el botón de limpiar apuesta
 
     renderGame();
     renderGameDealer();
   } else {
-    alert("Please place a bet before starting the game.");
+
+    toastr.error('Please place a bet before starting the game.');
   }
 }
 function renderGame() {
@@ -254,7 +258,9 @@ function doubleBet() {
       resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
     }
   } else {
-    alert("Not enough chips to double the bet or you've already drawn a new card.");
+    
+    toastr.error("Not enough chips to double the bet or you've already drawn a new card.");
+
   }
   stand();
 }
@@ -336,23 +342,7 @@ function resetGameAfterDelay() {
   }, 3000);
 }
 
-/// Aqui es donde va a ir toda la funciones de las cartas 
-const cardDeck = [
-  { image: 'img/toppng.com-fichas-poker-248x701.png', value: 2 },
-  { image: 'img/Screenshot 2024-06-04 212254.png', value: 3 },
-  { image: 'img/toppng.com-poker-1664x2123.png', value: 4 },
-  { image: 'img/toppng.com-stacks-of-poker-chips-png-graphic-transparent-cartoon-poker-chips-1403x1173.png', value: 5 },
-  { image: 'img/cartasPoker/card (5).png', value: 6 },
-  { image: 'img/cartasPoker/card (6).png', value: 7 },
-  { image: 'img/cartasPoker/card (7).png', value: 8 },
-  { image: 'img/cartasPoker/card (8).png', value: 9 },
-  { image: 'img/cartasPoker/card (9).png', value: 10 },
-  { image: 'img/cartasPoker/card (10).png', value: 10 },
-  { image: 'img/cartasPoker/card (11).png', value: 10 },
-  { image: 'img/cartasPoker/card (12).png', value: 10 },
-  { image: 'img/cartasPoker/card (13).png', value: 11 },
-  // Repite para los otros palos: diamantes, corazones y espadas
-];
+
 
 
 // aqui va la parte de la img de sum:el 
@@ -390,3 +380,96 @@ function inicialColor() {
 
 // Llamar a la función para que se ejecute al cargar la página
 updateBetImageColor();
+
+///// here it where it will go all the efect win lose tie and clean 
+function winBetEfect() {
+  betImage.classList.add("move-to-top-left"); // Agregar la clase de animación
+  betSum.classList.add("visiblilityNumber"); // Cambiar el color del texto a negro
+
+  // Después de que la animación termine, hacer que el elemento crezca más grande
+  setTimeout(() => {
+    betImage.classList.remove("move-to-top-left"); // Quitar la clase de la primera animación
+    betImage.classList.add("grow-bigger"); // Añadir la clase para agrandarse
+
+    // Después de que se agrande, volver a la posición original
+    setTimeout(() => {
+      betImage.classList.remove("grow-bigger"); // Quitar la clase de agrandamiento
+      betImage.classList.add("move-back"); // Añadir la clase para volver a la posición original
+
+      // Remover la clase move-back después de la animación
+      setTimeout(() => {
+        betImage.classList.remove("move-back");
+
+        // Ocultar la imagen al establecer su opacidad en 0
+        betImage.style.opacity = "0";
+
+        // Después de un breve retraso, hacer que la imagen aparezca gradualmente aumentando su opacidad de 0 a 1
+        setTimeout(() => {
+          betImage.style.transition = "opacity 2s"; // Agregar una transición de opacidad
+          betImage.style.opacity = "1"; // Aumentar la opacidad gradualmente
+          animationApplied = false; // Permitir que la animación se pueda aplicar nuevamente
+          betSum.classList.remove("visiblilityNumber"); // Reset text color after animation
+        }, 1000); // El retraso debe ser menor que la duración de la transición (0.5s en este caso)
+        
+      }, 10); // La duración debe coincidir con la duración de la animación moveBack (1s en este caso)
+    }, 500); // La duración debe coincidir con la duración de la animación growBigger (0.5s en este caso)
+  }, 1000); // La duración debe coincidir con la duración de la animación moveToTopLeft (1s en este caso)
+}
+
+
+
+function loseBetEfect() {
+  betImage.classList.add("move-to-top-right"); // Agregar la clase de animación
+  betSum.classList.add("visiblilityNumber"); // Cambiar el color del texto a negro
+
+  // Después de que la animación termine, hacer que el elemento crezca más grande
+  setTimeout(() => {
+    betImage.classList.remove("move-to-top-right"); // Quitar la clase de la primera animación
+    betImage.classList.add("grow-bigger"); // Añadir la clase para agrandarse
+
+    // Después de que se agrande, volver a la posición original
+    setTimeout(() => {
+      betImage.classList.remove("grow-bigger"); // Quitar la clase de agrandamiento
+      betImage.classList.add("move-back"); // Añadir la clase para volver a la posición original
+
+      // Remover la clase move-back después de la animación
+      setTimeout(() => {
+        betImage.classList.remove("move-back");
+
+        // Ocultar la imagen al establecer su opacidad en 0
+        betImage.style.opacity = "0";
+
+        // Después de un breve retraso, hacer que la imagen aparezca gradualmente aumentando su opacidad de 0 a 1
+        setTimeout(() => {
+          betImage.style.transition = "opacity 2s"; // Agregar una transición de opacidad
+          betImage.style.opacity = "1"; // Aumentar la opacidad gradualmente
+          animationApplied = false; // Permitir que la animación se pueda aplicar nuevamente
+          betSum.classList.remove("visiblilityNumber"); // Reset text color after animation
+        }, 1000); // El retraso debe ser menor que la duración de la transición (0.5s en este caso)
+        
+      }, 10); // La duración debe coincidir con la duración de la animación moveBack (1s en este caso)
+    }, 500); // La duración debe coincidir con la duración de la animación growBigger (0.5s en este caso)
+  }, 1000); // La duración debe coincidir con la duración de la animación moveToTopLeft (1s en este caso)
+}
+
+
+
+
+///
+/// Aqui es donde va a ir toda la funciones de las cartas 
+const cardDeck = [
+  { image: 'img/toppng.com-fichas-poker-248x701.png', value: 2 },
+  { image: 'img/Screenshot 2024-06-04 212254.png', value: 3 },
+  { image: 'img/toppng.com-poker-1664x2123.png', value: 4 },
+  { image: 'img/toppng.com-stacks-of-poker-chips-png-graphic-transparent-cartoon-poker-chips-1403x1173.png', value: 5 },
+  { image: 'img/cartasPoker/card (5).png', value: 6 },
+  { image: 'img/cartasPoker/card (6).png', value: 7 },
+  { image: 'img/cartasPoker/card (7).png', value: 8 },
+  { image: 'img/cartasPoker/card (8).png', value: 9 },
+  { image: 'img/cartasPoker/card (9).png', value: 10 },
+  { image: 'img/cartasPoker/card (10).png', value: 10 },
+  { image: 'img/cartasPoker/card (11).png', value: 10 },
+  { image: 'img/cartasPoker/card (12).png', value: 10 },
+  { image: 'img/cartasPoker/card (13).png', value: 11 },
+  // Repite para los otros palos: diamantes, corazones y espadas
+];

@@ -1,0 +1,63 @@
+
+  
+  @keyframes moveLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100px); /* Ajusta esta distancia según sea necesario */
+    }
+  }
+  
+  /* .move-left {
+    animation: moveLeft 0.5s forwards;
+  }
+   */
+
+/*  */
+
+  @keyframes moveToTopLeft {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-25vw, -25vh) scale(1); /* Curvatura */
+    }
+    100% {
+      transform: translate(-50vw, -50vh) scale(1); /* Mover a la esquina superior izquierda */
+    }
+  }
+  
+  @keyframes growBigger {
+    0% {
+      transform: translate(-50vw, -50vh) scale(1);
+    }
+    100% {
+      transform: translate(-50vw, -50vh) scale(1.5); /* Aumentar tamaño en la esquina superior izquierda */
+    }
+  }
+  
+  @keyframes moveBack {
+    0% {
+      transform: translate(-50vw, -50vh) scale(1.5);
+    }
+    100% {
+      transform: translate(0, 0) scale(1); /* Volver a la posición original */
+    }
+  }
+  
+  .move-to-top-left {
+    animation: moveToTopLeft 1s forwards; /* Ajustar la duración según sea necesario */
+  }
+  
+  .grow-bigger {
+    animation: growBigger 0.5s forwards; /* Ajustar la duración según sea necesario */
+  }
+  
+  .move-back {
+    animation: moveBack 1s forwards; /* Ajustar la duración según sea necesario */
+  }
+  
+  .no-transition {
+    transition: none; /* Desactivar transición para el regreso instantáneo */
+  }
