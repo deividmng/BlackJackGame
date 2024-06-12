@@ -55,6 +55,7 @@
     height: 50px;  /* Ajusta el tamaño según sea necesario */
     cursor: pointer;  /* Cambia el cursor al pasar sobre el contenedor */
     margin: 5px;  /* Espaciado entre los botones */
+  
 }
 
 .bet-button img {

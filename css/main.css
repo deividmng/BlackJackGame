@@ -4,14 +4,22 @@
 @import url('/css/loseBet.css');
 @import url('/css/messageWin.css');
 @import url('/css/PlaceBet.css');
+@import url('/css/cards.css');
 
+#player-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Agregar posición absoluta */
+ 
+}
 
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center; 
-    padding: 0 20px;
+   
   }
 
   body {
