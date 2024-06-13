@@ -1,4 +1,3 @@
-
 let cards = [];
 let hasBlackJack = false;
 let isAlive = false;
@@ -10,34 +9,35 @@ let cardsEl = document.getElementById("cards-el");
 // para que no se vean lo botonos al principio la de nercar stand i
 
 document.getElementById("newCard").style.display = "none";
-document.getElementById("stand").style.display = "none"; 
+document.getElementById("stand").style.display = "none";
 
 let player = {
   name: "David",
 };
 
-
 // Inicializar con 200 chips o el valor guardado en localStorage
-let chips = [localStorage.getItem('chips') ? parseInt(localStorage.getItem('chips')) : 200];  
+let chips = [
+  localStorage.getItem("chips") ? parseInt(localStorage.getItem("chips")) : 200,
+];
 
 let counterEl = document.getElementById("counter-el");
-let counter = 60;  // Tiempo en segundos
+let counter = 60; // Tiempo en segundos
 
 // Incrementar chips cada minuto
-setInterval(function() {
-  chips[0] += 10;  // Incrementar chips en 10 cada minuto
+setInterval(function () {
+  chips[0] += 10; // Incrementar chips en 10 cada minuto
   playerEl.textContent = player.name + ": £" + chips[0];
-  counter = 60;  // Reiniciar el contador a 60 segundos
-  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
-}, 60000);  // 60000 milisegundos = 1 minuto  cambiarlo a 60000 cuando este terminado
+  counter = 60; // Reiniciar el contador a 60 segundos
+  localStorage.setItem("chips", chips[0]); // Actualizar localStorage
+}, 60000); // 60000 milisegundos = 1 minuto  cambiarlo a 60000 cuando este terminado
 
 // Actualizar el contador cada segundo
-setInterval(function() {
+setInterval(function () {
   if (counter > 0) {
-    counter--;  // Decrementar el contador
+    counter--; // Decrementar el contador
     counterEl.textContent = "Next chips in: " + counter + "s";
   }
-}, 1000);  // 1000 milisegundos = 1 segundo
+}, 1000); // 1000 milisegundos = 1 segundo
 
 let playerEl = document.getElementById("player-el");
 playerEl.textContent = player.name + ": £" + chips[0];
@@ -48,12 +48,11 @@ function getRandomCard() {
   return cardDeck[randomIndex];
 }
 
-let betAmount = 0;  // Cantidad actual de la apuesta
+let betAmount = 0; // Cantidad actual de la apuesta
 let betSum = document.getElementById("betSum");
 
 startGamePricipal.classList.add("startGamePricipal"); // Agregar la clase de animación
-PlaceBet.classList.add('PlaceBet')
-
+PlaceBet.classList.add("PlaceBet");
 
 function bet(amount) {
   if (chips[0] >= amount) {
@@ -63,15 +62,19 @@ function bet(amount) {
     updateBetImageColor();
     betSum.classList.remove("visiblilityNumber"); // Reset text color (if applicable)
     //chipMove(); // Call chipMove for animation (if applicable)
-  // Apply the transition effect
-  const PlaceBet = document.querySelector('.PlaceBet');
-  PlaceBet.classList.add('PlaceBetOut');
+    // Apply the transition effect
+    const PlaceBet = document.querySelector(".PlaceBet");
+    PlaceBet.classList.add("PlaceBetOut");
 
-  // Set display: none after the transition ends
-  PlaceBet.addEventListener('transitionend', () => {
-    PlaceBet.style.display = 'none';
-  }, { once: true });
-    
+    // Set display: none after the transition ends
+    PlaceBet.addEventListener(
+      "transitionend",
+      () => {
+        PlaceBet.style.display = "none";
+      },
+      { once: true }
+    );
+
     betImage.classList.remove("spinAndDisappear"); // Remove other animations (if applicable)
 
     // Show the "Start Game" button with smooth opacity change
@@ -79,16 +82,14 @@ function bet(amount) {
     startGameElement.style.opacity = 3; // Set opacity to 0.3 on click
     // startGameElement.display = block; // Set opacity to 0.3 on click
 
-    
     // PlaceBetclassList.remove("spinAndDisappear");
 
     // Apply the same transition as starGamePricipal
     // startGameElement.classList.add("fade-in"); // Add a class for the transition
 
-  
-    localStorage.setItem('chips', chips[0]);
+    localStorage.setItem("chips", chips[0]);
   } else {
-    toastr.error('Not enough chips to place this bet');
+    toastr.error("Not enough chips to place this bet");
   }
 }
 
@@ -99,53 +100,50 @@ function bet(amount) {
 //   betImage.classList.add("fade"); // Agregar la clase de cambio de opacidad
 // }
 
-
-
-
 function cleanBet() {
   // Devolver el valor de la apuesta a las fichas del jugador
-  chips[0] += betAmount; 
+  chips[0] += betAmount;
   // Resetear la apuesta a 0
   betAmount = 0;
 
   // Actualizar la visualización para mostrar la apuesta eliminada y las fichas actualizadas
-  inicialColor()
+  inicialColor();
   updateBetDisplay();
   betSum.classList.add("visiblilityNumber"); // Reset text color after animation
-  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
+  localStorage.setItem("chips", chips[0]); // Actualizar localStorage
 
   betImage.classList.add("spinAndDisappear"); // Agregar la clase de animación
   // betImage.classList.add("moveBackUp"); // Agregar la clase de animación
-
-
-  
 }
 
 function updateBetDisplay() {
-  betSum.textContent =  + betAmount;
+  betSum.textContent = +betAmount;
   playerEl.textContent = player.name + ": £" + chips[0];
 }
 
-
-
 function loseBet() {
-  betAmount = 0;  // Resetear la apuesta
-  updateBetDisplay();
-  loseBetEfect()
+  setTimeout(function () {
+    betAmount = 0; // Resetear la apuesta
 
+    updateBetDisplay();
+
+    loseBetEfect();
+  }, 3000);
 }
 
 function winBet() {
-  chips[0] += betAmount * 2;  // Ganar las chips apostadas
-  betAmount = 0;  // Resetear la apuesta
-  updateBetDisplay();
-  localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
-  winBetEfect() 
+  setTimeout(function () {
+    // Resetear la apuesta
 
-  
+    chips[0] += betAmount * 2; // Ganar las chips apostadas
+    betAmount = 0; // Resetear la apuesta
+    updateBetDisplay();
+    localStorage.setItem("chips", chips[0]); // Actualizar localStorage
+    winBetEfect();
+  }, 3000);
 }
 
-let hasDrawnCard = false;  // Variable para rastrear si el jugador ha pedido una nueva carta
+let hasDrawnCard = false; // Variable para rastrear si el jugador ha pedido una nueva carta
 
 function startGame() {
   if (betAmount > 0) {
@@ -168,15 +166,13 @@ function startGame() {
     document.getElementById("stand").style.display = "block";
     document.getElementById("bet-buttons").style.display = "none";
     betImage.classList.remove("spinAndDisappear"); // Agregar la clase de animación
-    
 
-    document.getElementById('cleanBet').style.display = 'none';  // Ocultar el botón de limpiar apuesta
+    document.getElementById("cleanBet").style.display = "none"; // Ocultar el botón de limpiar apuesta
 
     renderGame();
     renderGameDealer();
   } else {
-
-    toastr.error('Please place a bet before starting the game.');
+    toastr.error("Please place a bet before starting the game.");
   }
 }
 function renderGame() {
@@ -219,8 +215,6 @@ function renderGame() {
   messageEl.textContent = message;
 }
 
-
-
 function newCard() {
   if (isAlive === true && hasBlackJack === false) {
     let card = getRandomCard();
@@ -244,7 +238,7 @@ function newCard() {
       isAlive = false;
       loseBet();
       resetGameAfterDelay();
-    } 
+    }
     if (sum <= 20) {
       message = "Do You Want another card?";
     } else if (sum === 21) {
@@ -263,46 +257,42 @@ function newCard() {
   }
 }
 
-
-
-
 function dealerNewCard() {
   while (sumDealer < 17) {
     let card = getRandomCard();
     dealerCards.push(card);
     sumDealer += card.value;
-    
-    
   }
-  renderGameDealer();  // Actualizar la visualización del dealer después de añadir una nueva carta
+  renderGameDealer(); // Actualizar la visualización del dealer después de añadir una nueva carta
 }
 
 function doubleBet() {
-  if (chips[0] >= betAmount && !hasDrawnCard) {  // Solo permitir doblar la apuesta si no se ha pedido una nueva carta
+  if (chips[0] >= betAmount && !hasDrawnCard) {
+    // Solo permitir doblar la apuesta si no se ha pedido una nueva carta
     chips[0] -= betAmount;
     betAmount *= 2;
     updateBetDisplay();
-    localStorage.setItem('chips', chips[0]);  // Actualizar localStorage
+    localStorage.setItem("chips", chips[0]); // Actualizar localStorage
 
     // Pedir una nueva carta
     let card = getRandomCard();
     sum += card.value;
     cards.push(card);
-    hasDrawnCard = true;  // Marcar que el jugador ha pedido una nueva carta
-    document.getElementById("doubleBet").style.display = "none";  // Ocultar el botón de doblar apuesta
+    hasDrawnCard = true; // Marcar que el jugador ha pedido una nueva carta
+    document.getElementById("doubleBet").style.display = "none"; // Ocultar el botón de doblar apuesta
     renderGame();
 
     // Si la tercera carta se da al jugador, termina el juego
     if (sum > 21) {
       message = "You Bust! Dealer Wins!";
       isAlive = false;
-      loseBet();  // Perder la apuesta si se pasa de 21
-      resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
+      loseBet(); // Perder la apuesta si se pasa de 21
+      resetGameAfterDelay(); // Reiniciar el juego después de 3 segundos
     }
   } else {
-    
-    toastr.error("Not enough chips to double the bet or you've already drawn a new card.");
-
+    toastr.error(
+      "Not enough chips to double the bet or you've already drawn a new card."
+    );
   }
   stand();
 }
@@ -335,20 +325,19 @@ function renderGameDealer() {
 
     cardOffset += 30; // Adjust this value for more or less overlap
   }
-  
+
   playerDealer.textContent = "Dealer's Sum: " + sumDealer;
 
   if (sumDealer > 21) {
     messageDealer.textContent = "Dealer Busted!";
   } else if (sumDealer === 21) {
     messageDealer.textContent = "Dealer got Blackjack!";
-  } else {
-    messageDealer.textContent = "Dealer stands.";
+  
   }
 }
 
 function stand() {
-  dealerNewCard();  // El dealer comienza a tomar cartas solo cuando el jugador decide "stand"
+  dealerNewCard(); // El dealer comienza a tomar cartas solo cuando el jugador decide "stand"
 
   // Determinar el ganador
   if (sumDealer > 21) {
@@ -363,43 +352,37 @@ function stand() {
   } else {
     message = "It's a tie!";
     chips[0] += betAmount; // Devolver la apuesta en caso de empate
-
   }
 
   messageEl.textContent = message;
   isAlive = false;
-  resetGameAfterDelay();  // Reiniciar el juego después de 3 segundos
+  resetGameAfterDelay(); // Reiniciar el juego después de 3 segundos
 }
 
 function resetGameAfterDelay() {
-  setTimeout(function() {
+  setTimeout(function () {
     cards = [];
     dealerCards = [];
     sum = 0;
     sumDealer = 0;
     messageEl.textContent = "Want to play a round?";
-    cardsEl.textContent = "Your Cards:";
-    sumEl.textContent = "Your Sum:";
-    cardDel.textContent = "Dealer's Cards:";
-    playerDealer.textContent = "Dealer's Sum:";
-    messageDealer.textContent = "Dealer's message will appear here";
-    document.getElementById("doubleBet").style.display = "none";  // Ocultar el botón de doblar apuesta
-    document.getElementById("newCard").style.display = "none"; 
-    document.getElementById("stand").style.display = "none"; 
-    document.getElementById("bet-buttons").style.display = "none"; 
+    cardsEl.textContent = "";
+    sumEl.textContent = "";
+    cardDel.textContent = "";
+    playerDealer.textContent = "";
+    messageDealer.textContent = "";
+    document.getElementById("doubleBet").style.display = "none"; // Ocultar el botón de doblar apuesta
+    document.getElementById("newCard").style.display = "none";
+    document.getElementById("stand").style.display = "none";
+    document.getElementById("bet-buttons").style.display = "none";
     document.getElementById("bet-buttons").style.display = "block";
-    inicialColor()
-    document.getElementById('cleanBet').style.display = 'block';  // Mostrar el botón de limpiar apuesta
+    inicialColor();
+    document.getElementById("cleanBet").style.display = "block"; // Mostrar el botón de limpiar apuesta
     document.getElementById("startGame").style.display = "block";
-    
-  }, 333000);
+  }, 5000);
 }
 
-
-
-
-// aqui va la parte de la img de sum:el 
-
+// aqui va la parte de la img de sum:el
 
 // ...
 
@@ -424,17 +407,14 @@ function updateBetImageColor() {
   }
 }
 
-
-
 function inicialColor() {
   betImage.style.filter = "none";
 }
 
-
 // Llamar a la función para que se ejecute al cargar la página
 updateBetImageColor();
 
-///// here it where it will go all the efect win lose tie and clean 
+///// here it where it will go all the efect win lose tie and clean
 function winBetEfect() {
   betImage.classList.add("move-to-top-left"); // Agregar la clase de animación
   betSum.classList.add("visiblilityNumber"); // Cambiar el color del texto a negro
@@ -463,13 +443,10 @@ function winBetEfect() {
           animationApplied = false; // Permitir que la animación se pueda aplicar nuevamente
           betSum.classList.remove("visiblilityNumber"); // Reset text color after animation
         }, 1000); // El retraso debe ser menor que la duración de la transición (0.5s en este caso)
-        
       }, 10); // La duración debe coincidir con la duración de la animación moveBack (1s en este caso)
     }, 500); // La duración debe coincidir con la duración de la animación growBigger (0.5s en este caso)
   }, 1000); // La duración debe coincidir con la duración de la animación moveToTopLeft (1s en este caso)
 }
-
-
 
 function loseBetEfect() {
   betImage.classList.add("move-to-top-right"); // Agregar la clase de animación
@@ -499,30 +476,30 @@ function loseBetEfect() {
           animationApplied = false; // Permitir que la animación se pueda aplicar nuevamente
           betSum.classList.remove("visiblilityNumber"); // Reset text color after animation
         }, 1000); // El retraso debe ser menor que la duración de la transición (0.5s en este caso)
-        
       }, 10); // La duración debe coincidir con la duración de la animación moveBack (1s en este caso)
     }, 500); // La duración debe coincidir con la duración de la animación growBigger (0.5s en este caso)
   }, 1000); // La duración debe coincidir con la duración de la animación moveToTopLeft (1s en este caso)
 }
 
-
-
-
 ///
-/// Aqui es donde va a ir toda la funciones de las cartas 
+/// Aqui es donde va a ir toda la funciones de las cartas
 const cardDeck = [
-  { image: 'img/toppng.com-fichas-poker-248x701.png', value: 2 },
-  { image: 'img/Screenshot 2024-06-04 212254.png', value: 3 },
-  { image: 'img/toppng.com-poker-1664x2123.png', value: 4 },
-  { image: 'img/toppng.com-stacks-of-poker-chips-png-graphic-transparent-cartoon-poker-chips-1403x1173.png', value: 5 },
-  { image: 'img/cartasPoker/card (5).png', value: 6 },
-  { image: 'img/cartasPoker/card (6).png', value: 7 },
-  { image: 'img/cartasPoker/card (7).png', value: 8 },
-  { image: 'img/cartasPoker/card (8).png', value: 9 },
-  { image: 'img/cartasPoker/card (9).png', value: 10 },
-  { image: 'img/cartasPoker/card (10).png', value: 10 },
-  { image: 'img/cartasPoker/card (11).png', value: 10 },
-  { image: 'img/cartasPoker/card (12).png', value: 10 },
-  { image: 'img/cartasPoker/card (13).png', value: 11 },
+  { image: "img/toppng.com-fichas-poker-248x701.png", value: 2 },
+  { image: "img/Screenshot 2024-06-04 212254.png", value: 3 },
+  { image: "img/toppng.com-poker-1664x2123.png", value: 4 },
+  {
+    image:
+      "img/toppng.com-stacks-of-poker-chips-png-graphic-transparent-cartoon-poker-chips-1403x1173.png",
+    value: 5,
+  },
+  { image: "img/cartasPoker/card (5).png", value: 6 },
+  { image: "img/cartasPoker/card (6).png", value: 7 },
+  { image: "img/cartasPoker/card (7).png", value: 8 },
+  { image: "img/cartasPoker/card (8).png", value: 9 },
+  { image: "img/cartasPoker/card (9).png", value: 10 },
+  { image: "img/cartasPoker/card (10).png", value: 10 },
+  { image: "img/cartasPoker/card (11).png", value: 10 },
+  { image: "img/cartasPoker/card (12).png", value: 10 },
+  { image: "img/cartasPoker/card (13).png", value: 11 },
   // Repite para los otros palos: diamantes, corazones y espadas
 ];

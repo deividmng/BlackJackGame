@@ -6,8 +6,8 @@
   
   @keyframes dropFromTopRight {
     0% {
-      top: -300px;
-      left: -200%; /* Inicia desde el lado derecho */
+      top: -350px;
+      left: -400%; /* Inicia desde el lado derecho */
       opacity: 0;
       transform: rotate(-360deg);
     }
