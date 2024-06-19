@@ -1,0 +1,117 @@
+#player-el {
+
+    padding: 10px 30px;
+    border: 2px solid rgb(204, 174, 4);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), /* Sombra exterior */
+    inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra interior */
+     /* Gradiente sutil background: linear-gradient(145deg, #8B4513, #A52A2A);  */
+    position: relative; /* Permite posicionamiento absoluto dentro */
+    display: flex; /* Usa flexbox para alinear el contenido */
+    align-items: center; /* Centra el contenido verticalmente */
+    justify-content: space-between; /* Espacio entre el texto y la imagen */
+}
+
+
+#imgCard {
+   
+    position: absolute;
+    margin: auto;
+    height: 50px;
+}
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  .chips {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+  }
+
+  #player-el {
+    margin: 0;
+  }
+
+  #imgSalud {
+    height: 30px;
+    width: 30px;
+   
+    cursor: pointer;
+    animation: heartbeat 5s infinite;
+    margin-left: 5px !important;
+  }
+
+  .progress-bar-container {
+    position: relative;
+    width: 200px; /* Ancho total de la barra de progreso */
+    height: 30px; /* Altura total de la barra de progreso, ajusta según necesites */
+    margin-left: 10px; /* Espacio a la izquierda */
+  }
+  
+  .progress-bar {
+    width: 100%; /* Llena el contenedor */
+    height: 10px; /* Altura de la barra de progreso */
+    background-color: #ddd; /* Color de fondo de la barra de progreso */
+    border-radius: 5px; /* Borde redondeado */
+    overflow: hidden; /* Oculta el contenido que desborda */
+  }
+  
+  .progress {
+    width: 50%; /* Ancho inicial de la barra de progreso, ajusta según necesites */
+    height: 100%; /* Altura de la barra de progreso */
+    background-color: #4caf50; /* Color de la barra de progreso */
+    border-radius: 5px; /* Borde redondeado */
+  }
+  
+  .number {
+    position: absolute;
+    top: 5px; /* Posiciona los números encima de la barra de progreso */
+    transform: translateY(-50%);
+    font-size: 12px; /* Tamaño del número, ajusta según necesites */
+    color: #fff; /* Color del número */
+    width: 30px; /* Ancho del círculo */
+    height: 30px; /* Altura del círculo */
+    border-radius: 50%; /* Círculo */
+    background-color: #4caf50; /* Color de fondo del círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1; /* Asegura que los números estén por encima de la barra de progreso */
+  }
+  
+  .number.one {
+    left: calc(0% - 15px); /* Alinea el número uno a la izquierda */
+
+  }
+  
+  .number.two {
+    right: calc(0% - 15px); /* Alinea el número dos a la derecha */
+    margin-right: 10px;
+  }
+  
+  
+  
+  @keyframes heartbeat {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.1);
+    }
+    50% {
+      transform: scale(1);
+    }
+    75% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

@@ -5,6 +5,16 @@
 @import url('/css/messageWin.css');
 @import url('/css/PlaceBet.css');
 @import url('/css/cards.css');
+@import url('/css/header.css');
+
+
+
+
+
+
+
+
+
 
 #player-container {
   display: flex;
@@ -15,12 +25,6 @@
 }
 
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-   
-  }
 
   body {
     background-image: url(/img/Screenshot\ 2024-06-04\ 212254.png);

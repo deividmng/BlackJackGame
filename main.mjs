@@ -8,6 +8,27 @@ let cardsEl = document.getElementById("cards-el");
 
 // para que no se vean lo botonos al principio la de nercar stand i
 
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Create the progress bar container
+  const progressBarContainer = document.createElement('div');
+  progressBarContainer.classList.add('progress-bar');
+
+  // Create the progress bar itself
+  const progressBar = document.createElement('div');
+  progressBar.classList.add('progress');
+  progressBar.id = 'progress';
+  progressBar.style.width = '50%'; // Ajusta el ancho según sea necesario
+
+  // Append the progress bar to the container
+  progressBarContainer.appendChild(progressBar);
+
+  // Find the container en el documento y añade el contenedor de la barra de progreso
+  const progressContainer = document.getElementById('progress-container');
+  progressContainer.appendChild(progressBarContainer);
+});
+
+
 document.getElementById("newCard").style.display = "none";
 document.getElementById("stand").style.display = "none";
 
@@ -23,8 +44,12 @@ let chips = [
 let counterEl = document.getElementById("counter-el");
 let counter = 60; // Tiempo en segundos
 
+
+
+
 // Incrementar chips cada minuto
 setInterval(function () {
+
   chips[0] += 10; // Incrementar chips en 10 cada minuto
   playerEl.textContent = player.name + ": £" + chips[0];
   counter = 60; // Reiniciar el contador a 60 segundos
@@ -39,8 +64,11 @@ setInterval(function () {
   }
 }, 1000); // 1000 milisegundos = 1 segundo
 
+
+
+
 let playerEl = document.getElementById("player-el");
-playerEl.textContent = player.name + ": £" + chips[0];
+playerEl.textContent = player.name + ": £dd" + chips[0]   ;
 
 // Función para obtener una carta aleatoria
 function getRandomCard() {
