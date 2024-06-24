@@ -6,27 +6,119 @@ let messageEl = document.getElementById("message-el");
 let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
 
+
+let levelOne = document.getElementById('numberOne')
+let levelTwo = document.getElementById('numberTwo')
+
+ // esto es la parte que hace que suba el nivel 
+
+
 // para que no se vean lo botonos al principio la de nercar stand i
 
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Create the progress bar container
-  const progressBarContainer = document.createElement('div');
-  progressBarContainer.classList.add('progress-bar');
+let currentNumberOne = 1;
+let currentNumberTwo = 2;
+let changeCost = 1; // Costo inicial
+let progress = document.getElementById("progress");
 
-  // Create the progress bar itself
-  const progressBar = document.createElement('div');
-  progressBar.classList.add('progress');
-  progressBar.id = 'progress';
-  progressBar.style.width = '50%'; // Ajusta el ancho según sea necesario
+console.log(progress);
 
-  // Append the progress bar to the container
-  progressBarContainer.appendChild(progressBar);
+// Función para incrementar el número
+function increaseNumber() {
+  // Verificar si tenemos suficiente "costo" para cambiar de nivel
+  if (changeCost <= 0) {
+    if (currentNumberOne < 10) {
+      currentNumberOne++;
+      currentNumberTwo++;
+      
+      // Actualizar el texto en los elementos de los números
+      document.getElementById("numberOne").textContent = currentNumberOne;
+      document.getElementById("numberTwo").textContent = currentNumberTwo;
+     
+      // Incrementar el costo para el próximo cambioR
+      changeCost = currentNumberOne; // Puedes ajustar esta fórmula según tus necesidades
 
-  // Find the container en el documento y añade el contenedor de la barra de progreso
-  const progressContainer = document.getElementById('progress-container');
-  progressContainer.appendChild(progressBarContainer);
-});
+      // Ajustar el ancho de la barra de progreso con una animación suave
+      let progressBarWidth = (changeCost / 10) * 100; // Cambia 10 a la cifra más alta
+
+      // Aplicar la animación y luego ajustar el ancho de la barra de progreso
+      animateProgress();
+      progress.style.width = `${progressBarWidth}%`;
+    } else {
+      // Si ya llegamos a 10, dejamos de incrementar
+      console.log("Máximo alcanzado");
+    }
+  } else {
+    // Reducir el costo cada vez que se hace clic
+    changeCost--;
+  }
+}
+
+// Función para aplicar la animación a la barra de progreso
+function animateProgress() {
+  // Remueve la clase y la vuelve a añadir para reiniciar la animación
+  progress.classList.remove('progress-animated');
+  void progress.offsetWidth; // Trigger reflow
+  progress.classList.add('progress-animated');
+}
+
+// Llamar a increaseNumber() inicialmente para establecer el primer ancho de la barra de progreso
+increaseNumber();
+
+
+// Simula el cambio de changeCost y aplica la animación
+function changeCostAndAnimate(newCost) {
+  changeCost = newCost;
+  animateProgress();
+}
+
+
+
+
+
+
+// esta parte es para guardalo en el localstorage in the future 
+// let currentNumberOne = parseInt(localStorage.getItem('currentNumberOne')) || 1;
+// let currentNumberTwo = parseInt(localStorage.getItem('currentNumberTwo')) || 2;
+// let changeCost = parseInt(localStorage.getItem('changeCost')) || 1;
+
+// // Actualizar el texto en los elementos de los números
+// document.getElementById("numberOne").textContent = currentNumberOne;
+// document.getElementById("numberTwo").textContent = currentNumberTwo;
+
+// // Función para incrementar el número
+// function increaseNumber() {
+//   // Verificar si tenemos suficiente "costo" para cambiar de nivel
+//   if (changeCost <= 0) {
+//     if (currentNumberOne < 10) {
+//       currentNumberOne++;
+//       currentNumberTwo++;
+      
+//       // Actualizar el texto en los elementos de los números
+//       document.getElementById("numberOne").textContent = currentNumberOne;
+//       document.getElementById("numberTwo").textContent = currentNumberTwo;
+
+//       // Incrementar el costo para el próximo cambio
+//       changeCost = currentNumberOne; // Puedes ajustar esta fórmula según tus necesidades
+
+//       // Guardar en localStorage
+//       localStorage.setItem('currentNumberOne', currentNumberOne);
+//       localStorage.setItem('currentNumberTwo', currentNumberTwo);
+//       localStorage.setItem('changeCost', changeCost);
+
+//       // Aplicar la animación
+//       animateProgress();
+//     } else {
+//       // Si ya llegamos a 10, dejamos de incrementar
+//       console.log("Máximo alcanzado");
+//     }
+//   } else {
+//     // Reducir el costo cada vez que se hace clic
+//     changeCost--;
+//     localStorage.setItem('changeCost', changeCost);
+//   }
+// }
+
 
 
 document.getElementById("newCard").style.display = "none";
@@ -86,6 +178,10 @@ function bet(amount) {
   if (chips[0] >= amount) {
     betAmount += amount;
     chips[0] -= amount;
+    /// eliminar luego de aqui el increaseNumber
+    increaseNumber()
+  
+
     updateBetDisplay();
     updateBetImageColor();
     betSum.classList.remove("visiblilityNumber"); // Reset text color (if applicable)
