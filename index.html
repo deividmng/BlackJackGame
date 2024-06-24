@@ -16,18 +16,22 @@
         <img id="imgSalud" src="/img/salud.png" alt="Salud">
       </div>
       
-      <p>0 - 10</p>
+  
       
       <!-- Contenedor de la barra de progreso -->
       <div class="progress-bar-container">
         <!-- Barra de progreso -->
         <div class="progress-bar">
           <div class="progress" id="progress"></div>
-          
-          <!-- Números en círculos -->
-          <div class="number one">1</div>
-          <div class="number two">2</div>
         </div>
+        
+        <!-- Números en círculos -->
+        <div id="numberOne" class="number one">1</div>
+        <div id="numberTwo" class="number two">2</div>
+      </div>
+      
+      <button onclick="increaseNumber()">Increase Number</button>
+      
       </div>
     </div>
   </header>

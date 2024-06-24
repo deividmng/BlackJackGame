@@ -46,7 +46,6 @@
     animation: heartbeat 5s infinite;
     margin-left: 5px !important;
   }
-
   .progress-bar-container {
     position: relative;
     width: 200px; /* Ancho total de la barra de progreso */
@@ -63,11 +62,35 @@
   }
   
   .progress {
-    width: 50%; /* Ancho inicial de la barra de progreso, ajusta según necesites */
+    width: 10%; /* Ancho inicial de la barra de progreso */
     height: 100%; /* Altura de la barra de progreso */
     background-color: #4caf50; /* Color de la barra de progreso */
     border-radius: 5px; /* Borde redondeado */
   }
+  
+  @keyframes progressAnimation {
+    0% {
+      width: 0%;
+      background-color: #4caf50; /* Verde al inicio */
+    }
+    50% {
+      width: 100%;
+      background-color: gold; /* Cambia a dorado al final */
+    }
+    100% {
+      width: 0%;
+      background-color: gold; /* Cambia a dorado al final */
+    }
+  }
+  /* Clase que aplica la animación */
+  .progress-animated {
+    animation: progressAnimation 2s forwards; /* Duración de 2 segundos, puede ajustarse */
+  }
+  
+
+
+
+
   
   .number {
     position: absolute;
