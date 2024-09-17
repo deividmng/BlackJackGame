@@ -16,25 +16,24 @@
         <img id="imgSalud" src="/img/salud.png" alt="Salud">
       </div>
       
-  
-      
-      <!-- Contenedor de la barra de progreso -->
-      <div class="progress-bar-container">
-        <!-- Barra de progreso -->
-        <div class="progress-bar">
-          <div class="progress" id="progress"></div>
+
+    
+    <div class="progress-bar-container">
+      <span id="left-number" class="bordered">0</span>
+      <div class="progress-bar borderedBar">
+        <div id="fill-bar">
+          <div id="fill-bar" class="progress"></div>
         </div>
-        
-        <!-- Números en círculos -->
-        <div id="numberOne" class="number one">1</div>
-        <div id="numberTwo" class="number two">2</div>
       </div>
-      
-      <button onclick="increaseNumber()">Increase Number</button>
-      
-      </div>
+      <span id="right-number" class="bordered">100</span>
     </div>
+    
+    <!-- <button onclick="increaseProgress()">Incrementar progreso</button> -->
+    
   </header>
+
+
+  
   
   
   <section id="">
@@ -48,7 +47,7 @@
   
   <div id="player-container">
   <section id="player">
-    <p id="message-el">Want to play a round?</p>
+    <p id="message-el"></p>
     <div id="cards-el" style="position: relative; height: 100px;"></div>
     <p id="sum-el"></p>
   </section>
@@ -66,8 +65,14 @@
 
   <div id="startGamePricipal" class="startGamePricipal">
     <div class="button-group">
-      <button id="startGame" onclick="startGame()">Start Game</button>
-      <button id="cleanBet" onclick="cleanBet()">Clean Bet</button>
+      <button id="startGame" onclick="startGame()">
+        <img src="./img/buttons/play_arrow_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg">
+       
+      </button>
+      <button id="cleanBet" onclick="cleanBet()">
+        <img src="./img/buttons/close_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg" width="24" height="4">
+        
+      </button>
     </div>
     <div id="img-chips">
       <div id="betContainer">
@@ -121,6 +126,9 @@
   
 
   <p id="counter-el">Next chips in: 60s</p>
+
+
+  
 
   <script  src="main.mjs"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

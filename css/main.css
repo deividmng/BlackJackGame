@@ -6,6 +6,8 @@
 @import url('/css/PlaceBet.css');
 @import url('/css/cards.css');
 @import url('/css/header.css');
+@import url('/css/bar.css');
+@import url('/css/buttons.css');
 
 
 
@@ -44,18 +46,6 @@ p {
   
 }
 
-#startGame {
-    background-color: goldenrod;
-    text-align: center;
-    padding: 12px;
-    margin-bottom: 5px;
-    font-size: bold;
-    cursor: pointer;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    margin-right: 10px;
-}
 
 
 #dealer {

@@ -7,117 +7,55 @@ let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
 
 
-let levelOne = document.getElementById('numberOne')
-let levelTwo = document.getElementById('numberTwo')
+// Cargar el estado desde localStorage
+function loadState() {
+  currentNumberOne = parseInt(localStorage.getItem('currentNumberOne')) || 0;
+  progress = parseInt(localStorage.getItem('progress')) || 0;
+  
+  // Actualizar la interfaz con los valores cargados
+  document.getElementById('left-number').textContent = currentNumberOne;
+  document.getElementById('right-number').textContent = currentNumberTwo;
+  document.getElementById('fill-bar').style.width = progress + '%';
+}
 
- // esto es la parte que hace que suba el nivel 
+// Función para guardar el estado en localStorage
+function saveState() {
+  localStorage.setItem('currentNumberOne', currentNumberOne);
+  localStorage.setItem('progress', progress);
+}
 
+// Función para incrementar el progreso
+function increaseProgress() {
+  if (progress < maxProgress) {
+    progress += 1; // Incrementa la barra en 1%
+    if (progress > maxProgress) progress = maxProgress;
 
-// para que no se vean lo botonos al principio la de nercar stand i
+    document.getElementById('fill-bar').style.width = '100%';
 
+    // Incrementar el número actual
+    currentNumberOne++;
+    
+    // Esperar a que la animación termine y luego volver al progreso actual
+    setTimeout(() => {
+      document.getElementById('fill-bar').style.width = progress + '%';
+      // Guardar el estado después de la animación
+      saveState();
+    }, 1000); // Coincide con la duración de la animación en CSS
 
-let currentNumberOne = 1;
-let currentNumberTwo = 2;
-let changeCost = 1; // Costo inicial
-let progress = document.getElementById("progress");
-
-console.log(progress);
-
-// Función para incrementar el número
-function increaseNumber() {
-  // Verificar si tenemos suficiente "costo" para cambiar de nivel
-  if (changeCost <= 0) {
-    if (currentNumberOne < 10) {
-      currentNumberOne++;
-      currentNumberTwo++;
-      
-      // Actualizar el texto en los elementos de los números
-      document.getElementById("numberOne").textContent = currentNumberOne;
-      document.getElementById("numberTwo").textContent = currentNumberTwo;
-     
-      // Incrementar el costo para el próximo cambioR
-      changeCost = currentNumberOne; // Puedes ajustar esta fórmula según tus necesidades
-
-      // Ajustar el ancho de la barra de progreso con una animación suave
-      let progressBarWidth = (changeCost / 10) * 100; // Cambia 10 a la cifra más alta
-
-      // Aplicar la animación y luego ajustar el ancho de la barra de progreso
-      animateProgress();
-      progress.style.width = `${progressBarWidth}%`;
-    } else {
-      // Si ya llegamos a 10, dejamos de incrementar
-      console.log("Máximo alcanzado");
-    }
-  } else {
-    // Reducir el costo cada vez que se hace clic
-    changeCost--;
+    // Actualizar la interfaz
+    document.getElementById('left-number').textContent = currentNumberOne;
   }
 }
 
-// Función para aplicar la animación a la barra de progreso
-function animateProgress() {
-  // Remueve la clase y la vuelve a añadir para reiniciar la animación
-  progress.classList.remove('progress-animated');
-  void progress.offsetWidth; // Trigger reflow
-  progress.classList.add('progress-animated');
-}
+// Inicialización de las variables
+let currentNumberOne = parseInt(localStorage.getItem('currentNumberOne')) || 0;
+let currentNumberTwo = 100; // El número de la derecha permanece constante
+let progress = parseInt(localStorage.getItem('progress')) || 0;
+let maxProgress = 100;
 
-// Llamar a increaseNumber() inicialmente para establecer el primer ancho de la barra de progreso
-increaseNumber();
+// Cargar el estado al cargar la página
+window.onload = loadState;
 
-
-// Simula el cambio de changeCost y aplica la animación
-function changeCostAndAnimate(newCost) {
-  changeCost = newCost;
-  animateProgress();
-}
-
-
-
-
-
-
-// esta parte es para guardalo en el localstorage in the future 
-// let currentNumberOne = parseInt(localStorage.getItem('currentNumberOne')) || 1;
-// let currentNumberTwo = parseInt(localStorage.getItem('currentNumberTwo')) || 2;
-// let changeCost = parseInt(localStorage.getItem('changeCost')) || 1;
-
-// // Actualizar el texto en los elementos de los números
-// document.getElementById("numberOne").textContent = currentNumberOne;
-// document.getElementById("numberTwo").textContent = currentNumberTwo;
-
-// // Función para incrementar el número
-// function increaseNumber() {
-//   // Verificar si tenemos suficiente "costo" para cambiar de nivel
-//   if (changeCost <= 0) {
-//     if (currentNumberOne < 10) {
-//       currentNumberOne++;
-//       currentNumberTwo++;
-      
-//       // Actualizar el texto en los elementos de los números
-//       document.getElementById("numberOne").textContent = currentNumberOne;
-//       document.getElementById("numberTwo").textContent = currentNumberTwo;
-
-//       // Incrementar el costo para el próximo cambio
-//       changeCost = currentNumberOne; // Puedes ajustar esta fórmula según tus necesidades
-
-//       // Guardar en localStorage
-//       localStorage.setItem('currentNumberOne', currentNumberOne);
-//       localStorage.setItem('currentNumberTwo', currentNumberTwo);
-//       localStorage.setItem('changeCost', changeCost);
-
-//       // Aplicar la animación
-//       animateProgress();
-//     } else {
-//       // Si ya llegamos a 10, dejamos de incrementar
-//       console.log("Máximo alcanzado");
-//     }
-//   } else {
-//     // Reducir el costo cada vez que se hace clic
-//     changeCost--;
-//     localStorage.setItem('changeCost', changeCost);
-//   }
-// }
 
 
 
@@ -179,7 +117,7 @@ function bet(amount) {
     betAmount += amount;
     chips[0] -= amount;
     /// eliminar luego de aqui el increaseNumber
-    increaseNumber()
+    
   
 
     updateBetDisplay();
@@ -256,6 +194,7 @@ function loseBet() {
 }
 
 function winBet() {
+  increaseProgress();
   setTimeout(function () {
     // Resetear la apuesta
 
