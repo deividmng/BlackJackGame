@@ -46,27 +46,7 @@
     animation: heartbeat 5s infinite;
     margin-left: 5px !important;
   }
-  .progress-bar-container {
-    position: relative;
-    width: 200px; /* Ancho total de la barra de progreso */
-    height: 30px; /* Altura total de la barra de progreso, ajusta según necesites */
-    margin-left: 10px; /* Espacio a la izquierda */
-  }
-  
-  .progress-bar {
-    width: 100%; /* Llena el contenedor */
-    height: 10px; /* Altura de la barra de progreso */
-    background-color: #ddd; /* Color de fondo de la barra de progreso */
-    border-radius: 5px; /* Borde redondeado */
-    overflow: hidden; /* Oculta el contenido que desborda */
-  }
-  
-  .progress {
-    width: 10%; /* Ancho inicial de la barra de progreso */
-    height: 100%; /* Altura de la barra de progreso */
-    background-color: #4caf50; /* Color de la barra de progreso */
-    border-radius: 5px; /* Borde redondeado */
-  }
+
   
   @keyframes progressAnimation {
     0% {

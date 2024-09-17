@@ -1,0 +1,60 @@
+.progress-bar-container {
+    position: relative;
+    width: 200px; /* Ancho total de la barra de progreso */
+    height: 30px; /* Altura total de la barra de progreso, ajusta según necesites */
+    margin-left: 10px; /* Espacio a la izquierda */
+  }
+  
+  .progress-bar {
+    width: 100%; /* Llena el contenedor */
+    height: 10px; /* Altura de la barra de progreso */
+    
+    
+    overflow: hidden; /* Oculta el contenido que desborda */
+  }
+  
+  .progress {
+    width: 10%; /* Ancho inicial de la barra de progreso */
+    height: 100%; /* Altura de la barra de progreso */
+    background-color: #4caf50; /* Color de la barra de progreso */
+    border-radius: 5px; /* Borde redondeado */
+  }
+
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .bordered {
+    border: 1px solid gold; /* Borde de oro */
+    padding: 5px;
+    border-radius: 5px; /* Bordes redondeados */
+    color: white;
+  }
+  
+  .borderedBar {
+  border-top: 1px solid gold;    /* Solo borde superior */
+  border-bottom: 1px solid gold; /* Solo borde inferior */
+  padding: 5px;
+}
+  .progress-bar {
+    position: relative;
+    width: 80%;
+    height: 5px;
+    margin: 0 ;
+    overflow: hidden;
+  }
+  
+  #fill-bar {
+    height: 100%;
+    width: 0;
+    background-color: gold;
+    transition: width 0.5s ease;
+  }
+  
+  #left-number,
+  #right-number {
+    font-size: 18px;
+  }
+  
