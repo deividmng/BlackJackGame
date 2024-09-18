@@ -34,9 +34,10 @@
   }
   
   .borderedBar {
-  border-top: 1px solid gold;    /* Solo borde superior */
-  border-bottom: 1px solid gold; /* Solo borde inferior */
+  border-top: 1px solid rgb(204, 174, 4);    /* Solo borde superior */
+  border-bottom: 1px solid rgb(204, 174, 4); /* Solo borde inferior */
   padding: 5px;
+   
 }
   .progress-bar {
     position: relative;

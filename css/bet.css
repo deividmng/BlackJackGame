@@ -110,35 +110,6 @@
 
 
 
-.all-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap; /* Asegura que los botones se envuelvan si el espacio es insuficiente */
-    margin-bottom: 20px;
-    
-  }
-  
-  .button-group {
-    margin-right: 20px; /* Espacio entre el grupo de botones y los otros botones */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap; /* Asegura que los botones se envuelvan si el espacio es insuficiente */
-
-  }
-
-  
-.all-buttons button{
- 
-    margin-left: 10px;
-    
-  }
-  
-
-
-
-
 
   #img-chips {
     position: relative;

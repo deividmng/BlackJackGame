@@ -1,7 +1,6 @@
 #startGame {
-    background-color: goldenrod;
+    background-color: rgb(9, 209, 26);
     text-align: center;
-
     margin-bottom: 5px;
     font-size: bold;
     cursor: pointer;
@@ -9,17 +8,119 @@
     border: none;
     border-radius: 10px;
     margin-right: 10px;
+    border: 2px solid rgb(204, 174, 4);
 }
 
 #cleanBet {
     background-color: red;
     text-align: center;
-
     margin-bottom: 5px;
     font-size: bold;
     cursor: pointer;
     font-weight: bold;
     border: none;
     border-radius: 10px;
+    border: 2px solid rgb(204, 174, 4);
  
 }
+#stand {
+  background-color: red;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: bold;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    border: 2px solid rgb(204, 174, 4);
+}
+
+#doubleBet {
+  background-color: rgb(17, 66, 158);
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: bold;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    border: 2px solid rgb(204, 174, 4);
+}
+
+#newCard{
+  background-color: rgb(29, 172, 13);
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: bold;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    border: 2px solid rgb(204, 174, 4);
+}
+.button-group {
+  display: flex !important;
+  gap: 10px;
+}
+
+  button {
+    display: flex;
+    flex-direction: column; /* Alinea el contenido de los botones en una columna (icono y texto) */
+    align-items: center; /* Centra el icono y el texto */
+    border: none;
+    background-color: transparent; /* Sin fondo para el botón */
+    cursor: pointer;
+  }
+  
+  button img {
+    margin-bottom: 5px; /* Añade espacio entre la imagen y el texto */
+  }
+  
+  button span {
+    font-size: 14px; /* Tamaño del texto debajo de los botones */
+    color: white; /* Color del texto */
+  }
+  
+
+
+  /* here is the button of playing */
+
+
+  
+  
+
+
+.all-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Asegura que los botones se envuelvan si el espacio es insuficiente */
+    margin-bottom: 20px;
+   
+    
+  }
+  
+  .button-group {
+    margin-right: 20px; /* Espacio entre el grupo de botones y los otros botones */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Asegura que los botones se envuelvan si el espacio es insuficiente */
+
+  }
+
+  
+.all-buttons button{
+    margin-left: 10px;
+    
+  }
+  
+
+  .button-play {
+    display: flex;
+    justify-content: center; /* Centra el grupo de botones horizontalmente */
+    gap: 20px; /* Espacio entre botones */
+    margin-top: 20px; /* Añadir un poco de espacio en la parte superior */
+  }
+
+  
