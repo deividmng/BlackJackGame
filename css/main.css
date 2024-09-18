@@ -1,38 +1,26 @@
-@import url('/css/bet.css');
-@import url('/css/winBet.css');
-@import url('/css/clenaBet.css');
-@import url('/css/loseBet.css');
-@import url('/css/messageWin.css');
-@import url('/css/PlaceBet.css');
-@import url('/css/cards.css');
-@import url('/css/header.css');
-@import url('/css/bar.css');
-@import url('/css/buttons.css');
-
-
-
-
-
-
-
-
-
+@import url("/css/bet.css");
+@import url("/css/winBet.css");
+@import url("/css/clenaBet.css");
+@import url("/css/loseBet.css");
+@import url("/css/messageWin.css");
+@import url("/css/PlaceBet.css");
+@import url("/css/cards.css");
+@import url("/css/header.css");
+@import url("/css/bar.css");
+@import url("/css/buttons.css");
 
 #player-container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative; /* Agregar posición absoluta */
- 
 }
 
-
-
-  body {
-    background-image: url(/img/Screenshot\ 2024-06-04\ 212254.png);
-    background-repeat: no-repeat;
-    background-size: cover; /* Ajustar la imagen al tamaño del cuerpo */
-    text-align: center;
+body {
+  background-image: url(/img/tableroBJ.jpg);
+  background-repeat: no-repeat;
+  background-size: cover; /* Ajustar la imagen al tamaño del cuerpo */
+  text-align: center;
 }
 
 /* h1 {
@@ -42,41 +30,105 @@
 } */
 
 p {
-    color: white;
-  
+  color: white;
 }
-
-
 
 #dealer {
-    background-color: rgb(23, 62, 96);
-    border: 2px solid beige;
+  background-color: rgb(23, 62, 96);
+  border: 2px solid beige;
 }
 
+button {
+  cursor: pointer;
+}
 
+img {
+  width: 50px;
+  height: 50px;
+}
 
-  button {
-    cursor: pointer;
-   
-  }
-
-  img {
-    width: 50px;
-    height: 50px;
-  }
-
-
-  /* aqui van las transiciones para hacer que empiece el juego */
+/* aqui van las transiciones para hacer que empiece el juego */
 /* 
   #button-group {
     
   }
  */
 
-
- .startGamePricipal {
-  
+.startGamePricipal {
   opacity: 0; /* Initial opacity of 1 */
   transition: opacity 2s ease-in-out; /* Transition for opacity change */
 }
 
+.sum {
+  position: relative; /* Necesario para posicionar el ::before correctamente */
+  background-color: black; /* Fondo negro */
+  color: white; /* Texto blanco */
+  border: 2px solid gold; /* Borde dorado */
+  width: 40px; /* Ajusta el tamaño según tus necesidades */
+  height: 40px; /* Ajusta el tamaño según tus necesidades */
+  border-radius: 50%; /* Bordes completamente redondeados */
+  display: flex; /* Para centrar el texto */
+  align-items: center; /* Centra el texto verticalmente */
+  justify-content: center; /* Centra el texto horizontalmente */
+  font-weight: bold; /* Texto en negrita */
+  margin-top: -10px; /* Eleva el elemento un poco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Opcional: Sombra para darle un efecto de elevación */
+}
+
+.sum::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* Ajusta la altura para que sobresalga */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 2px solid gold; /* Triángulo hacia la izquierda */
+  border-right: 2px solid gold; /* Triángulo hacia la derecha */
+  border-bottom: 20px solid black; /* Triángulo hacia abajo */
+}
+
+.sumDel {
+  position: relative; /* Necesario para posicionar el ::before correctamente */
+  background-color: black; /* Fondo negro */
+  color: white; /* Texto blanco */
+  border: 2px solid gold; /* Borde dorado */
+  width: 40px; /* Ajusta el tamaño según tus necesidades */
+  height: 40px; /* Ajusta el tamaño según tus necesidades */
+  border-radius: 50%; /* Bordes completamente redondeados */
+  display: flex; /* Para centrar el texto */
+  align-items: center; /* Centra el texto verticalmente */
+  justify-content: center; /* Centra el texto horizontalmente */
+  font-weight: bold; /* Texto en negrita */
+  margin-top: -10px; /* Eleva el elemento un poco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Opcional: Sombra para darle un efecto de elevación */
+}
+
+.sumDel::before {
+  content: "";
+  position: absolute;
+  bottom: -10px; /* Ajusta la altura para que sobresalga hacia abajo */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 2px solid gold; /* Triángulo hacia la izquierda */
+  border-right: 2px solid gold; /* Triángulo hacia la derecha */
+  border-top: 20px solid black; /* Triángulo hacia abajo */
+}
+
+.container-el,
+.container-dl {
+  display: flex; /* Establece el contenedor como un contenedor flex */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+.container-dl {
+  display: flex; /* Establece el contenedor como un contenedor flex */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+.p {
+  background-color: red;
+}

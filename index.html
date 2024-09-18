@@ -1,64 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
+
 <body>
   <header>
     <div class="header">
       <img src="/img/card-back.png" alt="" id="imgCard">
-      
+
       <div class="chips">
         <p id="player-el">David: £200</p>
         <img id="imgSalud" src="/img/salud.png" alt="Salud">
       </div>
-      
 
-    
-    <div class="progress-bar-container">
-      <span id="left-number" class="bordered">0</span>
-      <div class="progress-bar borderedBar">
-        <div id="fill-bar">
-          <div id="fill-bar" class="progress"></div>
+
+
+      <div class="progress-bar-container">
+        <span id="left-number" class="bordered">0</span>
+        <div class="progress-bar borderedBar">
+          <div id="fill-bar">
+            <div id="fill-bar" class="progress"></div>
+          </div>
         </div>
+        <span id="right-number" class="bordered">100</span>
       </div>
-      <span id="right-number" class="bordered">100</span>
-    </div>
-    
-    <!-- <button onclick="increaseProgress()">Incrementar progreso</button> -->
-    
+
+      <!-- <button onclick="increaseProgress()">Incrementar progreso</button> -->
+
   </header>
 
 
-  
-  
-  
+
+
+
   <section id="">
-    <p id="cards-dele"><p>
+    <div class="container-dl">
+      <p id="player-dele"></p>
+    </div>
+    <p id="cards-dele">
+    <p>
     <p id="message-dele"></p>
-    <p id="player-dele"></p>
   </section>
 
 
 
-  
+
   <div id="player-container">
-  <section id="player">
-    <p id="message-el"></p>
-    <div id="cards-el" style="position: relative; height: 100px;"></div>
-    <p id="sum-el"></p>
-  </section>
+    <section id="player">
+      <p id="message-el"></p>
+      <div id="cards-el" style="position: relative; height: 100px;"></div>
+      <div class="container-el">
+        <div id="sum-el"></div>
+      </div>
+    </section>
   </div>
-  
+
   <h1 id="PlaceBet" class="PlaceBet">Place Your Bet </h1>
-  <section class="all-buttons">
-  
-    <button id="newCard" onclick="newCard()">NEW CARD</button>
-    <button id="stand" onclick="stand()">STAND</button>
-    <button id="doubleBet" onclick="doubleBet()" style="display:none;">DOUBLE BET</button>
+  <section class="button-play">
+    <button id="stand" onclick="stand()">
+      <img src="./img/buttons/front_hand_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg">
+      <span>STAND</span>
+    </button>
+
+    <button id="doubleBet" onclick="doubleBet()" style="display:none;">
+      <img src="./img/buttons/roulette-svgrepo-com.svg">
+      <span>DOUBLE BET</span>
+    </button>
+
+    <button id="newCard" onclick="newCard()">
+      <img src="./img/buttons/arrow_downward_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg">
+      <span>NEW CARD</span>
+    </button>
   </section>
 
 
@@ -66,38 +83,41 @@
   <div id="startGamePricipal" class="startGamePricipal">
     <div class="button-group">
       <button id="startGame" onclick="startGame()">
-        <img src="./img/buttons/play_arrow_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg">
-       
+        <img src="./img/buttons/play_arrow_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg" alt="Play" width="24"
+          height="24">
+        <span>Deal</span>
       </button>
+
       <button id="cleanBet" onclick="cleanBet()">
-        <img src="./img/buttons/close_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg" width="24" height="4">
-        
+        <img src="./img/buttons/close_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg" alt="Clear" width="24" height="24">
+        <span>Clear</span>
       </button>
     </div>
+
     <div id="img-chips">
       <div id="betContainer">
-        
+
         <img id="betImage" src="/img/chip.png" alt="Bet Image">
         <p id="betSum">0</p>
       </div>
     </div>
   </div>
-  
-  <section id="bet-buttons" >
+
+  <section id="bet-buttons">
     <div class="allArrows">
 
       <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
-      <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg"class="add5px" alt="Additional Image">
       <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
       <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
       <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
       <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
-    
+      <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
+
     </div>
 
-   
+
     <div class="bet-button" id="bet-five-btn" onclick="bet(5)">
-      
+
       <img src="./img/chip.png" alt="Bet 5">
       <span>5</span>
     </div>
@@ -122,17 +142,18 @@
       <span>250</span>
     </div>
   </section>
-  
-  
+
+
 
   <p id="counter-el">Next chips in: 60s</p>
 
 
-  
 
-  <script  src="main.mjs"></script>
+
+  <script src="main.mjs"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </body>
+
 </html>
