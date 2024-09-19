@@ -1,36 +1,128 @@
-const API_URL = 'https://deckofcardsapi.com/api/deck';
+
+let deckId = null;  // Aquí almacenaremos el ID de la baraja
 
 // Función para crear una nueva baraja
-async function createDeck() {
-    const response = await fetch(`${API_URL}/new/`);
-    const data = await response.json();
-    return data.deck_id;
+
+
+// Función para dibujar una carta
+
+let currentCardImage = ""; // Variable global para almacenar la imagen de la carta
+
+// Función para crear la baraja
+function createDeck() {
+  const url = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      deckId = data.deck_id; // Guardar el ID del deck
+      console.log(`Deck ID: ${deckId}`);
+    })
+    .catch(error => console.error('Error al crear la baraja:', error));
+}
+
+// Array para almacenar las cartas dibujadas
+let drawnCards = [];
+
+
+
+function initializeDeck() {
+  fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        deckId = data.deck_id; // Asigna el deck ID
+        console.log(`Deck ID: ${deckId}`);
+        drawMultipleCards(5); // Dibuja 5 cartas después de inicializar el mazo
+      } else {
+        console.error('No se pudo inicializar el mazo.');
+      }
+    })
+    .catch(error => console.error('Error al inicializar el mazo:', error));
+}
+
+function drawCard(count) {
+  if (!deckId) {
+    console.error('No hay deck ID disponible.');
+    return;
+  }
+
+  const drawUrl = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${count}`;
+
+  return fetch(drawUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        data.cards.forEach(card => {
+          drawnCards.push(card); // Añadir cada carta a drawnCards
+        });
+        console.log(`Cartas dibujadas: ${data.cards.map(card => `${card.value} of ${card.suit}`).join(', ')}`);
+      } else {
+        console.error('No se pudo dibujar una carta.');
+      }
+    })
+    .catch(error => console.error('Error al dibujar la carta:', error));
+}
+
+function drawMultipleCards(count) {
+  const promises = [];
+  
+  // Llama a drawCard varias veces hasta que se hayan dibujado el número deseado de cartas
+  for (let i = 0; i < Math.ceil(count / 1); i++) {
+    promises.push(drawCard(1));
+  }
+
+  // Espera a que todas las cartas se hayan dibujado
+  Promise.all(promises).then(() => {
+    console.log(`Total de cartas disponibles: ${drawnCards.length}`);
+  });
+}
+
+// Inicializa el mazo y luego dibuja las cartas
+initializeDeck();
+
+
+
+function getRandomCard() {
+  // Verificar si aún hay cartas disponibles
+  drawCard(5);
+  if (drawnCards.length === 0) {
+    console.error('No hay cartas disponibles. Debes llamar a drawCard primero.');
+    return null;
+  }
+
+  // Seleccionar un índice aleatorio
+  const randomIndex = Math.floor(Math.random() * drawnCards.length);
+  
+  // Extraer la carta del array drawnCards para asegurar que no se repita
+  const randomCard = drawnCards.splice(randomIndex, 1)[0]; // Eliminar la carta seleccionada de drawnCards
+  
+  return randomCard;
 }
 
 
+// Crear la baraja al cargar la página
+createDeck();
 
 
-let deckId = '';
+// Ejemplo de uso después de obtener el deckId
+fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
+  .then(response => response.json())
+  .then(data => {
+    const deckId = data.deck_id;
+    console.log(`Deck ID: ${deckId}`);
+    
+    
+    // Ahora dibujar una carta con el deckId
+    drawCard(deckId);
+  })
+  .catch(error => console.error('Error al crear la baraja:', error));
 
 
-async function createDeck() {
-    const response = await fetch(`${API_URL}/new/`);
-    const data = await response.json();
-    deckId = data.deck_id;
-    return deckId;
-}
-
-async function drawCard() {
-    const response = await fetch(`${API_URL}/deck/${deckId}/draw/?count=1`);
-    const data = await response.json();
-    if (data.cards.length > 0) {
-        return data.cards[0];
-    } else {
-        return null;
-    }
-}
 
 
+  
 let cards = [];
 let hasBlackJack = false;
 let isAlive = false;
@@ -129,7 +221,6 @@ function animateChipsChange(start, end, duration) {
 }
 
 
-
 function updateChips(newChipsValue) {
   let currentChips = chips[0]; // Valor actual de las fichas
   chips[0] = newChipsValue; // Actualizar el valor de las fichas
@@ -174,10 +265,13 @@ let playerEl = document.getElementById("player-el");
 playerEl.textContent = player.name + ": £dd" + chips[0]   ;
 
 // Función para obtener una carta aleatoria
-function getRandomCard() {
-  let randomIndex = Math.floor(Math.random() * cardDeck.length);
-  return cardDeck[randomIndex];
-}
+// function getRandomCard() {
+//   let randomIndex = Math.floor(Math.random() * cardDeck.length);
+//   return cardDeck[randomIndex];
+// }
+
+
+
 
 let betAmount = 0; // Cantidad actual de la apuesta
 let betSum = document.getElementById("betSum");
@@ -269,7 +363,9 @@ function winBet() {
 
 let hasDrawnCard = false; // Variable para rastrear si el jugador ha pedido una nueva carta
 
+
 function startGame() {
+ 
   if (betAmount > 0) {
     isAlive = true;
     hasBlackJack = false;
@@ -301,10 +397,13 @@ function startGame() {
   }
 }
 
+
+
 function renderGame() {
   cardsEl.innerHTML = ""; // Clear previous cards
   let cardOffset = 0; // Offset for stacking cards
 
+  // Mostrar todas las cartas en el array `cards`
   for (let card of cards) {
     let img = document.createElement("img");
     img.src = card.image;
@@ -322,12 +421,31 @@ function renderGame() {
 
     cardOffset += 30; // Adjust this value for more or less overlap
   }
-  sumEl.textContent = "" + sum;
 
-   sumEl.classList.add("sum");
-   playerDealer.classList.add("sumDel");
-  
-  
+  // Obtener una carta aleatoria
+  // aqui daba el fallo al echo de que estaba llamado dos funciones al mismo tiempo
+  // const randomCard = getRandomCard();
+  // if (randomCard) {
+  //   let img = document.createElement("img");
+  //   img.src = randomCard.image;
+  //   img.style.width = "50px";
+  //   img.style.height = "70px";
+  //   img.style.top = `0px`;
+  //   img.style.left = `${cardOffset}px`; // Set the initial position
+  //   img.style.transform = `translate(${cardOffset}px, 0px)`; // Apply the translation
+
+  //   // Add the animation class
+  //   img.classList.add("dropFromTopRight");
+
+  //   // Append the random card to the container
+  //   cardsEl.appendChild(img);
+
+  //   cardOffset += 30; // Adjust this value for more or less overlap
+  // }
+
+  sumEl.textContent = "" + sum;
+  sumEl.classList.add("sum");
+  playerDealer.classList.add("sumDel");
 
   if (sum <= 20) {
     message = "Do You Want another card?";
@@ -345,6 +463,7 @@ function renderGame() {
   }
   messageEl.textContent = message;
 }
+
 
 function newCard() {
   if (isAlive === true && hasBlackJack === false) {
