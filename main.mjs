@@ -424,11 +424,43 @@ function renderGame() {
   messageEl.textContent = message;
 }
 function dealerNewCard() {
-    let card = getRandomCard();
-    dealerCards.push(card);
-    sumDealer += card.value;
-  renderGameDealer(); // Actualizar la visualización del dealer después de añadir una nueva carta
+  return new Promise((resolve) => { // Devolver una promesa
+    let dealerIndex = 0; // Índice para controlar cuántas cartas se han añadido
+
+    function addDealerCard() {
+      if (sumDealer < 17) {
+        let card = getRandomCard();
+        
+        // Convertir los valores de las cartas a números
+        let cardValue;
+        if (card.value === "ACE") {
+          cardValue = 11; // Valor por defecto del As
+        } else if (["KING", "QUEEN", "JACK"].includes(card.value)) {
+          cardValue = 10; // Reyes, reinas y jotas valen 10
+        } else {
+          cardValue = parseInt(card.value); // Convertir el valor a número
+        }
+
+        dealerCards.push(card);
+        sumDealer += cardValue;
+
+        // Renderizar el estado actual del dealer
+        renderGameDealer();
+
+        // Incrementar el índice para la próxima carta
+        dealerIndex++;
+
+        // Llamar a la función de nuevo después de 1 segundo
+        setTimeout(addDealerCard, 1000);
+      } else {
+        resolve(); // Resolver la promesa cuando el dealer termina de tomar cartas
+      }
+    }
+
+    addDealerCard(); // Iniciar el proceso
+  });
 }
+
 function doubleBet() {
   // Verificar si el jugador tiene suficientes fichas y aún no ha pedido una nueva carta
   if (chips[0] >= betAmount && !hasDrawnCard) {
@@ -520,6 +552,7 @@ function renderGameDealer() {
     img.style.transform = `translate(${cardOffset}px, 0px)`; // Apply the translation
     // Add the animation class
     img.classList.add("dropFromTopRight");
+    
     // Append the card to the container
     cardDel.appendChild(img);
     // Sumar el valor de la carta del dealer
@@ -536,32 +569,35 @@ function renderGameDealer() {
   }
 }
 function stand() {
-  dealerNewCard(); // El dealer comienza a tomar cartas solo cuando el jugador decide "stand"
-  if (sum > 21) {
-    // El jugador se pasa (pierde)
-    message = "You Busted! Dealer Wins!";
-    loseBet();
-  } else if (sumDealer > 21) {
-    // El dealer se pasa (gana el jugador)
-    message = "Dealer Busted! You Win!";
-    winBet();
-  } else if (sum > sumDealer) {
-    // El jugador gana
-    message = "You Win!";
-    winBet();
-  } else if (sum < sumDealer) {
-    // El dealer gana
-    message = "Dealer Wins!";
-    loseBet();
-  } else {
-    // Empate
-    message = "It's a tie!";
-    chips[0] += betAmount; // Devolver la apuesta original en caso de empate
-  }
-  messageEl.textContent = message;
-  isAlive = false;
-  resetGameAfterDelay(); // Reiniciar el juego después de 3 segundos
+  dealerNewCard().then(() => { // Esperar a que el dealer termine de tomar cartas
+    if (sum > 21) {
+      // El jugador se pasa (pierde)
+      message = "You Busted! Dealer Wins!";
+      loseBet();
+    } else if (sumDealer > 21) {
+      // El dealer se pasa (gana el jugador)
+      message = "Dealer Busted! You Win!";
+      winBet();
+    } else if (sum > sumDealer) {
+      // El jugador gana
+      message = "You Win!";
+      winBet();
+    } else if (sum < sumDealer) {
+      // El dealer gana
+      message = "Dealer Wins!";
+      loseBet();
+    } else {
+      // Empate
+      message = "It's a tie!";
+      chips[0] += betAmount; // Devolver la apuesta original en caso de empate
+    }
+    
+    messageEl.textContent = message;
+    isAlive = false;
+    resetGameAfterDelay(); // Reiniciar el juego después de 3 segundos
+  });
 }
+
 function resetGameAfterDelay() {
   setTimeout(function () {
     cards = [];
@@ -584,7 +620,8 @@ function resetGameAfterDelay() {
     document.getElementById("startGame").style.display = "flex";
     sumEl.classList.remove("sum");
     playerDealer.classList.remove("sumDel");
-  }, 3000);
+  }, 6000);
+  // el delay de 6000 es los segundos que tienen que pasar para render de game again 
 }
 // aqui va la parte de la img de sum:el
 // ...
