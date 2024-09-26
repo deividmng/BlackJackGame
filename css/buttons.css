@@ -18,13 +18,17 @@
   
   /* Transición para efecto suave al hacer clic */
   transition: all 0.2s ease;
+  
 }
+
+
 
 #startGame:hover{
   /* Efecto de hundimiento cuando se presiona */
   box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3), 
               inset -2px -2px 5px rgba(255, 255, 255, 0.2);
   transform: translateY(2px);
+
 }
 
 #cleanBet {
@@ -179,6 +183,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap; /* Asegura que los botones se envuelvan si el espacio es insuficiente */
+    cursor: pointer;
 
   }
 
