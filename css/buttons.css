@@ -1,63 +1,136 @@
 #startGame {
-    background-color: rgb(9, 209, 26);
-    text-align: center;
-    margin-bottom: 5px;
-    font-size: bold;
-    cursor: pointer;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    margin-right: 10px;
-    border: 2px solid rgb(204, 174, 4);
+  background-color: rgb(9, 209, 26);
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: bold;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  border: 2px solid rgb(204, 174, 4);
+  cursor: pointer;
+  
+  /* Efecto de relieve */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 
+              inset 2px 2px 5px rgba(255, 255, 255, 0.2),
+              inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+  
+  /* Transición para efecto suave al hacer clic */
+  transition: all 0.2s ease;
+}
+
+#startGame:hover{
+  /* Efecto de hundimiento cuando se presiona */
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3), 
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
 }
 
 #cleanBet {
-    background-color: red;
-    text-align: center;
-    margin-bottom: 5px;
-    font-size: bold;
-    cursor: pointer;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    border: 2px solid rgb(204, 174, 4);
- 
+  background-color: red;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: bold;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  border: 2px solid rgb(204, 174, 4);
+  
+  /* Efecto de relieve */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 
+              inset 2px 2px 5px rgba(255, 255, 255, 0.2),
+              inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.2s ease;
 }
+
+#cleanBet:hover {
+  /* Efecto de hundimiento cuando se presiona */
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3), 
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
+}
+
 #stand {
   background-color: red;
-    text-align: center;
-    margin-bottom: 5px;
-    font-size: bold;
-    cursor: pointer;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    border: 2px solid rgb(204, 174, 4);
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: bold;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  border: 2px solid rgb(204, 174, 4);
+  
+  /* Efecto de relieve */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 
+              inset 2px 2px 5px rgba(255, 255, 255, 0.2),
+              inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.2s ease;
+}
+
+#stand:hover {
+  /* Efecto de hundimiento cuando se presiona */
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3), 
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
 }
 
 #doubleBet {
   background-color: rgb(17, 66, 158);
-    text-align: center;
-    margin-bottom: 5px;
-    font-size: bold;
-    cursor: pointer;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    border: 2px solid rgb(204, 174, 4);
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: bold;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  border: 2px solid rgb(204, 174, 4);
+
+  /* Efecto de relieve */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 
+              inset 2px 2px 5px rgba(255, 255, 255, 0.2),
+              inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.2s ease;
 }
 
-#newCard{
-  background-color: rgb(29, 172, 13);
-    text-align: center;
-    margin-bottom: 5px;
-    font-size: bold;
-    cursor: pointer;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    border: 2px solid rgb(204, 174, 4);
+#doubleBet:hover {
+  /* Efecto de hundimiento cuando se presiona */
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3), 
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
 }
+
+#newCard {
+  background-color: rgb(29, 172, 13);
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: bold;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  border: 2px solid rgb(204, 174, 4);
+
+  /* Efecto de relieve */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3), 
+              inset 2px 2px 5px rgba(255, 255, 255, 0.2),
+              inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.2s ease;
+}
+
+#newCard:hover {
+  /* Efecto de hundimiento cuando se presiona */
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3), 
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
+}
+
 .button-group {
   display: flex !important;
   gap: 10px;
