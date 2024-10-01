@@ -237,6 +237,22 @@ function bet(amount) {
 // Variable para almacenar el intervalo
 
 
+function autoStartGame() {
+  if (betHistory.length > 0) {
+    // Obtener la última apuesta del array
+    let lastBet = betHistory[betHistory.length - 1];
+    console.log("Última apuesta:", lastBet);
+
+    // Cambiar el betAmount a la última apuesta
+    betAmount = lastBet; // Actualizar betAmount con la última apuesta
+
+    // Opcional: Si deseas mostrarlo en la interfaz
+    betSum.textContent = `${betAmount}`; // Actualizar betSum visualmente
+  } else {
+    console.log("No hay apuestas en el historial.");
+  }
+  startGame()
+}
 
 
 
