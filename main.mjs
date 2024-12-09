@@ -1,9 +1,5 @@
 
 
-
-
-
-
 let deckId = null; // Aquí almacenaremos el ID de la baraja
 // Función para crear una nueva baraja
 // Función para dibujar una carta
@@ -226,6 +222,7 @@ function bet(amount) {
     startGameElement.style.opacity = 3;
 
     // Guardar la apuesta en el array
+    
     betHistory.push(betAmount);
   } else {
     toastr.error("Not enough chips to place this bet");
@@ -235,27 +232,6 @@ function bet(amount) {
   console.log("Bet history:", betHistory);
 }
 // Variable para almacenar el intervalo
-
-
-function autoStartGame() {
-  if (betHistory.length > 0) {
-    // Obtener la última apuesta del array
-    let lastBet = betHistory[betHistory.length - 1];
-    console.log("Última apuesta:", lastBet);
-
-    // Cambiar el betAmount a la última apuesta
-    betAmount = lastBet; // Actualizar betAmount con la última apuesta
-
-    // Opcional: Si deseas mostrarlo en la interfaz
-    betSum.textContent = `${betAmount}`; // Actualizar betSum visualmente
-  } else {
-    console.log("No hay apuestas en el historial.");
-  }
-  startGame()
-}
-
-
-
 function cleanBet() {
   // Devolver el valor de la apuesta a las fichas del jugador
   chips[0] += betAmount;
@@ -395,12 +371,12 @@ function newCard() {
     let lastCard = cards[cards.length - 1];
     let img = document.createElement("img");
     img.src = lastCard.image;
-    img.style.width = "50px";
-    img.style.height = "70px";
+    img.style.width = "150px";
+    img.style.height = "170px";
     img.style.top = `0px`;
     img.style.left = `${(cards.length - 1) * 30}px`; // Ajustar la posición de acuerdo con la cantidad de cartas
-    img.style.transform = `translate(${(cards.length - 1) * 30}px, 0px)`; // Aplicar la traslación
-    img.classList.add("dropFromTopRight"); // Agregar la clase de animación
+    // img.style.transform = `translate(${(cards.length - 1) * 30}px, 0px)`; // Aplicar la traslación
+    // img.classList.add("dropFromTopRight"); // Agregar la clase de animación
     cardsEl.appendChild(img); // Agregar la nueva carta al contenedor de cartas
     // Actualizar el total de puntos
     sumEl.textContent = "" + sum ;
@@ -442,14 +418,14 @@ function renderGame() {
   for (let card of cards) {
     let img = document.createElement("img");
     img.src = card.image;
-    img.style.width = "50px";
-    img.style.height = "70px";
-    img.style.position = "absolute"; // Para asegurarse que se posicionen bien
-    img.style.left = `${cardOffset}px`; // Posición inicial
-    img.style.transform = `translate(${cardOffset}px, 0px)`; // Aplicar la traslación
+    img.style.width = "150px";
+    img.style.height = "170px";
+    // img.style.position = "absolute"; // Para asegurarse que se posicionen bien
+    // img.style.left = `${cardOffset}px`; // Posición inicial
+    //  img.style.transform = `translate(${cardOffset}px, 0px)`; // Aplicar la traslación
     
-    // Añadir la clase de animación
-    img.classList.add("dropFromTopRight");
+    // // Añadir la clase de animación
+    //  img.classList.add("dropFromTopRight");
 
     // Añadir la carta al contenedor
     cardsEl.appendChild(img);
@@ -636,13 +612,13 @@ function renderGameDealer() {
   for (let card of dealerCards) {
     let img = document.createElement("img");
     img.src = card.image;
-    img.style.width = "50px";
-    img.style.height = "70px";
+    img.style.width = "150px";
+    img.style.height = "170px";
     img.style.top = `0px`;
-    img.style.left = `${cardOffset}px`; // Set the initial position
-    img.style.transform = `translate(${cardOffset}px, 0px)`; // Apply the translation
+    // img.style.left = `${cardOffset}px`; // Set the initial position
+    // img.style.transform = `translate(${cardOffset}px, 0px)`; // Apply the translation
     // Add the animation class
-    img.classList.add("dropFromTopRight");
+    // img.classList.add("dropFromTopRight");
     
     // Append the card to the container
     cardDel.appendChild(img);
@@ -661,34 +637,40 @@ function renderGameDealer() {
 }
 function stand() {
   dealerNewCard().then(() => { // Esperar a que el dealer termine de tomar cartas
+    let message = "";  // Definir la variable message
     if (sum > 21) {
       // El jugador se pasa (pierde)
       message = "You Busted! Dealer Wins!";
       loseBet();
+      message.classList.add('message-bust', 'bust-animation');  // Clases adicionales para "Busted"
     } else if (sumDealer > 21) {
       // El dealer se pasa (gana el jugador)
       message = "Dealer Busted! You Win!";
       winBet();
+      message.classList.add('message-blackjack', 'win-animation');  // Clases adicionales para "You Win"
     } else if (sum > sumDealer) {
       // El jugador gana
       message = "You Win!";
       winBet();
+      message.classList.add('message-blackjack', 'win-animation');  // Clases adicionales para "You Win"
     } else if (sum < sumDealer) {
       // El dealer gana
       message = "Dealer Wins!";
       loseBet();
+      // message.classList.add('message-bust', 'lose-animation');  // Clases adicionales para "Dealer Wins"
     } else {
       // Empate
       message = "It's a tie!";
       chips[0] += betAmount; // Devolver la apuesta original en caso de empate
+      // messageEl.classList.add('');  // Clases adicionales para empate
     }
     
-    messageEl.textContent = message;
+    messageEl.textContent = message;  // Mostrar el mensaje
     isAlive = false;
     resetGameAfterDelay(); // Reiniciar el juego después de 3 segundos
-
   });
 }
+
 function resetGameAfterDelay() {
   setTimeout(function () {
     cards = [];
@@ -798,4 +780,32 @@ function loseBetEfect() {
 }
 
 
+
+/// autoDeal 
+
+
+
+function autoDeal() {
+  if (betHistory.length > 0) {
+    // Obtener la última apuesta y convertirla en un número
+    let lastBet = parseInt(betHistory[betHistory.length - 1], 10);
+    
+    if (!isNaN(lastBet)) {
+      betAmount = lastBet; // Asignar la última apuesta válida a betAmount
+      console.log("AutoDeal activado. Última apuesta:", betAmount);
+
+      // Actualizar la visualización de la suma
+      betSum.textContent = lastBet;
+
+      // Llamar a startGame automáticamente
+      startGame();
+    } else {
+      console.error("El último valor en betHistory no es un número válido.");
+      toastr.error("Invalid bet value in history.");
+    }
+  } else {
+    console.log("No hay historial de apuestas. Coloca una apuesta primero.");
+    toastr.error("No previous bet found. Please place a bet.");
+  }
+}
 

@@ -9,61 +9,57 @@
 </head>
 
 <body>
-  <header>
-    <div class="header">
-      <img src="/img/card-back.png" alt="" id="imgCard">
+  <header class="grid mb">
+    <div class="info-game">
+        <img src="/img/card-back.png" class="img-card" alt="" id="imgCard">
 
-      <div class="chips">
-        <p id="player-el">David: £200</p>
-        <img id="imgSalud" src="/img/salud.png" alt="Salud">
-      </div>
+        <div class="chips">
+            <p id="player-el">David: £200</p>
+            <img id="imgSalud" class="imgSalud" src="/img/salud.png" alt="Salud">
 
-
-
-      <div class="progress-bar-container">
-        <span id="left-number" class="bordered">0</span>
-        <div class="progress-bar borderedBar">
-          <div id="fill-bar">
-            <div id="fill-bar" class="progress"></div>
-          </div>
         </div>
-        <span id="right-number" class="bordered">100</span>
+
+     
+    </div>
+    <div class="progress-bar-container">
+      <span id="left-number" class="bordered">0</span>
+      <div class="progress-bar borderedBar">
+          <div id="fill-bar">
+              <div id="fill-bar" class="progress"></div>
+          </div>
       </div>
+      <span id="right-number" class="bordered">100</span>
+  </div>
+</header>
 
-      <!-- <button onclick="increaseProgress()">Incrementar progreso</button> -->
-
-  </header>
-
-
- 
-
-
-  <section id="">
-    <div class="container-dl">
+<section class="grid">
+  <div class="container-dl">
+    <div class="parent-container">
       <p id="player-dele"></p>
     </div>
-    <p id="cards-dele">
-      
-    <p>
-    <p id="message-dele"></p>
-  </section>
+      <p id="cards-dele"></p>
+      <p id="message-dele"></p>
+  </div>
+</section>
 
 
 
 
   <div id="player-container">
-    <section id="player">
+    <section id="player " >
       <p id="message-el"></p>
-      <div id="cards-el" style="position: relative; height: 100px;"></div>
-      <div id="cartas2"></div>
-      
+      <div id="cards-el"></div>      
       <div class="container-el">
-        <div id="sum-el"></div>
+        <div class="container-sum">
+          
+          <div id="sum-el"></div>
+        </div>
       </div>
     </section>
   </div>
 
   <h1 id="PlaceBet" class="PlaceBet">Place Your Bet </h1>
+  
   <section class="button-play">
     <button id="stand" onclick="stand()">
       <img src="./img/buttons/front_hand_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg">
@@ -91,6 +87,12 @@
         <span>Deal</span>
       </button>
 
+      <button id="autoDeal" onclick="autoDeal()">
+        <img src="" alt="Play" width="14"
+          height="24">
+        <span>Auto Deal</span>
+      </button>
+
       <button id="cleanBet" onclick="cleanBet()">
         <img src="./img/buttons/close_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg" alt="Clear" width="24" height="24">
         <span>Clear</span>
@@ -98,10 +100,6 @@
         </span>
       </button>
     </div>
-
-
-
-    
 
     <div id="img-chips">
       <div id="betContainer">
@@ -123,12 +121,6 @@
       <img src="./img/arrow_downward_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" class="add5px" alt="Additional Image">
 
     </div>
-
-
-    <button id="autoStartGame" onclick="autoStartGame()">Start Game Automaticaaslly</button>
-
-
-
 
 
     <div class="bet-button" id="bet-five-btn" onclick="bet(5)">

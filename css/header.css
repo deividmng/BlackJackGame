@@ -1,15 +1,9 @@
 #player-el {
-
-    padding: 10px 30px;
+    padding: 5px 30px;
     border: 2px solid rgb(204, 174, 4);
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), /* Sombra exterior */
-    inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra interior */
-     /* Gradiente sutil background: linear-gradient(145deg, #8B4513, #A52A2A);  */
-    position: relative; /* Permite posicionamiento absoluto dentro */
-    display: flex; /* Usa flexbox para alinear el contenido */
-    align-items: center; /* Centra el contenido verticalmente */
-    justify-content: space-between; /* Espacio entre el texto y la imagen */
+   margin-left: 10px;
+   margin-top: 0;
 }
 
 
@@ -34,17 +28,15 @@
     margin-left: 50px;
   }
 
-  #player-el {
-    margin: 0;
-  }
+ 
 
   #imgSalud {
     height: 30px;
     width: 30px;
-   
     cursor: pointer;
     animation: heartbeat 5s infinite;
     margin-left: 5px !important;
+    margin-top: -20px;
   }
 
   
