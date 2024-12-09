@@ -1,4 +1,38 @@
-.messageWin {
-    font-size: 33px;
+.message-blackjack {
+    color: #fff;
+    font-size: 100px;
+    text-align: center;
+    font-weight: bold;
+    animation: popup 1s ease-in-out, glow 1.5s infinite alternate;
+  }
+  
+  .message-bust {
     color: red;
-}
+    font-size: 80px;
+    text-align: center;
+    font-weight: bold;
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  .message-prompt {
+    color: yellow;
+    font-size: 50px;
+    text-align: center;
+    font-style: italic;
+  }
+  
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-10px);
+    }
+    50% {
+      transform: translateX(10px);
+    }
+    75% {
+      transform: translateX(-10px);
+    }
+  }
+  

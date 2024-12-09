@@ -1,0 +1,78 @@
+/* Estilo general para centrar todo el contenido */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* Create 12 equal-width columns */
+    gap: 10px; /* Space between the items */
+    max-width: 100%;
+}
+
+
+/* this par is the header */
+.info-game {
+    grid-column: span 1; /* Span across 10 columns */
+    display: flex; 
+    flex-direction: column;
+   
+}
+
+.chips {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+@media screen and (max-width: 768px) {
+    .grid {
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        gap: 10px;
+        align-items: center; /* Center the content horizontally */
+    }
+
+    .progress-bar-container {
+        width: 100%; /* Ensure it takes full width on small screens */
+    }
+
+    .img-card {
+        display: none; /* Hide the image */
+        visibility: hidden;
+    }
+
+    .info-game {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the content */
+        margin-bottom: 10px; /* Add some spacing between elements */
+    }
+}
+
+.progress-bar-container {
+    grid-column: 12 / span 12;
+    
+}
+/* end header  */
+
+/* card Part  */
+
+.container-dl {
+    grid-column: span 12; /* Span across all 12 columns */
+}
+
+.player-dele {
+    grid-column: span 5; /* Span across 5 columns */
+    background-color: gray;
+}
+
+.cards-dele {
+    grid-column: span 12; /* Span across all 12 columns */
+}
+
+.container-sum{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}

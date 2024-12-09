@@ -1,3 +1,5 @@
+@import url("/css/header.css");
+@import url("/css/grid.css");
 @import url("/css/bet.css");
 @import url("/css/winBet.css");
 @import url("/css/clenaBet.css");
@@ -5,7 +7,6 @@
 @import url("/css/messageWin.css");
 @import url("/css/PlaceBet.css");
 @import url("/css/cards.css");
-@import url("/css/header.css");
 @import url("/css/bar.css");
 @import url("/css/buttons.css");
 
@@ -21,6 +22,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover; /* Ajustar la imagen al tamaño del cuerpo */
   text-align: center;
+  height: 100vh;
 }
 
 /* h1 {
@@ -54,10 +56,6 @@ img {
   }
  */
 
-.startGamePricipal {
-  opacity: 0; /* Initial opacity of 1 */
-  transition: opacity 2s ease-in-out; /* Transition for opacity change */
-}
 
 .sum {
   position: relative; /* Necesario para posicionar el ::before correctamente */
@@ -75,33 +73,42 @@ img {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Opcional: Sombra para darle un efecto de elevación */
 }
 
+/* Parent container: ensure it's using flexbox for centering */
+.parent-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  position: relative; /* For proper positioning of absolute elements */
+}
+
+/* SumDel element */
+.sumDel {
+  position: relative; /* For positioning the ::before pseudo-element */
+  background-color: black;
+  color: white;
+  border: 2px solid gold;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Pseudo-element for the triangle */
 .sum::before {
   content: "";
   position: absolute;
-  top: -10px; /* Ajusta la altura para que sobresalga */
+  top: -10px; /* Adjust the height to make the triangle visible */
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 2px solid gold; /* Triángulo hacia la izquierda */
-  border-right: 2px solid gold; /* Triángulo hacia la derecha */
-  border-bottom: 20px solid black; /* Triángulo hacia abajo */
-}
-
-.sumDel {
-  position: relative; /* Necesario para posicionar el ::before correctamente */
-  background-color: black; /* Fondo negro */
-  color: white; /* Texto blanco */
-  border: 2px solid gold; /* Borde dorado */
-  width: 40px; /* Ajusta el tamaño según tus necesidades */
-  height: 40px; /* Ajusta el tamaño según tus necesidades */
-  border-radius: 50%; /* Bordes completamente redondeados */
-  display: flex; /* Para centrar el texto */
-  align-items: center; /* Centra el texto verticalmente */
-  justify-content: center; /* Centra el texto horizontalmente */
-  font-weight: bold; /* Texto en negrita */
-  margin-top: -10px; /* Eleva el elemento un poco */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Opcional: Sombra para darle un efecto de elevación */
+  border-left: 2px solid gold;
+  border-right: 2px solid gold;
+  border-bottom: 20px solid black;
 }
 
 .sumDel::before {
@@ -117,18 +124,104 @@ img {
   border-top: 20px solid black; /* Triángulo hacia abajo */
 }
 
-.container-el,
-.container-dl {
-  display: flex; /* Establece el contenedor como un contenedor flex */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-}
-.container-dl {
-  display: flex; /* Establece el contenedor como un contenedor flex */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
+
+
+/* Estilo para el mensaje normal */
+.message-normal {
+  color: #fff;
+  background-color: rgba(76, 175, 80, 0.5); /* Verde con 50% de transparencia */
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  display: inline-block; /* Asegura que el fondo solo cubra el texto */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 30px;
+  margin: 20px 480px; /* Márgenes izquierdo y derecho de 480px */
 }
 
-.p {
-  background-color: red;
+
+/* Estilo para el mensaje de Blackjack */
+/* Estilo para el mensaje de Blackjack */
+/* Estilo para el mensaje de Blackjack */
+.message-blackjack {
+  color: #fff;
+  font-size: 100px; /* Hacer el texto más grande */
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+  position: absolute; /* Asegúrate de que el mensaje esté posicionado de forma absoluta */
+  top: 20%; /* Centrar verticalmente */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translate(-50%, -50%) scale(1.2); /* Centrar el mensaje y escalarlo */
+  z-index: 9999; /* Asegurarse de que el mensaje esté al frente */
+  animation: popup 1s ease-in-out, glow 1.5s infinite alternate; /* Animaciones */
+}
+
+/* Animación para hacer que el mensaje de Blackjack aparezca y resplandezca */
+@keyframes popup {
+  0% {
+      transform: scale(0);
+      opacity: 0;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+/* Efecto de resplandor para dar un toque de victoria */
+@keyframes glow {
+  0% {
+      text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FFD700, 0px 0px 30px #FFD700;
+  }
+  100% {
+      text-shadow: 0px 0px 15px #ffcc00, 0px 0px 30px #ffcc00, 0px 0px 45px #ffcc00;
+  }
+}
+
+/* Estilo para el mensaje de Bust */
+/* Estilo para el mensaje de Bust (Pérdida) */
+.message-bust {
+  color: red;
+  font-size: 100px; /* Hacer el texto más grande */
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+  position: absolute; /* Asegúrate de que el mensaje esté posicionado de forma absoluta */
+  top: 20%; /* Centrar verticalmente */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translate(-50%, -50%) scale(1.2); /* Centrar el mensaje y escalarlo */
+  z-index: 9999; /* Asegurarse de que el mensaje esté al frente */
+  animation: shake 0.5s ease-in-out, fadeIn 1s ease-out; /* Animaciones de agitar y desvanecer */
+}
+
+/* Animación de agitar (shake) para la pérdida */
+@keyframes shake {
+  0% {
+      transform: translateX(0);
+  }
+  25% {
+      transform: translateX(-10px);
+  }
+  50% {
+      transform: translateX(10px);
+  }
+  75% {
+      transform: translateX(-10px);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+/* Animación para que el mensaje se desvanezca */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
 }
