@@ -81,23 +81,28 @@
 
   <div id="startGamePricipal" class="startGamePricipal">
     <div class="button-group">
-      <button id="startGame" onclick="startGame()">
-        <img src="./img/buttons/play_arrow_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg" alt="Play" width="24"
-          height="24">
-        <span>Deal</span>
-      </button>
-
-      <button id="autoDeal" onclick="autoDeal()">
-        <img src="" alt="Play" width="14"
-          height="24">
-        <span>Auto Deal</span>
-      </button>
 
       <button id="cleanBet" onclick="cleanBet()">
         <img src="./img/buttons/close_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg" alt="Clear" width="24" height="24">
         <span>Clear</span>
       
         </span>
+
+      <button id="startGame" onclick="startGame()">
+        <img src="./img/buttons/play_arrow_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.svg" alt="Play" width="24"
+          height="24">
+        <span>Deal</span>
+      </button>
+
+      <!-- <button id="autoDealButton" onclick="autoDealToggle()">Toggle Auto Deal</button> -->
+      
+      <button id="autoDeal" onclick="autoDeal()">
+        <img src="./img/swipe-right-svgrepo-com (1).svg" class="imgAuto" alt="Play" width="14"
+          height="24">
+        <!-- <span>>></span> -->
+      </button>
+
+    
       </button>
     </div>
 
@@ -105,7 +110,7 @@
       <div id="betContainer">
 
         <img id="betImage" src="/img/chip.png" alt="Bet Image">
-        <p id="betSum">0</p>
+        <p id="betSum"></p>
       </div>
     </div>
   </div>
