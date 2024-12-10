@@ -25,20 +25,11 @@ body {
   height: 100vh;
 }
 
-/* h1 {
-    color: red;
-    text-align: center;
-    font-size: 42px;
-} */
 
 p {
   color: white;
 }
 
-#dealer {
-  background-color: rgb(23, 62, 96);
-  border: 2px solid beige;
-}
 
 button {
   cursor: pointer;
@@ -50,12 +41,6 @@ img {
 }
 
 /* aqui van las transiciones para hacer que empiece el juego */
-/* 
-  #button-group {
-    
-  }
- */
-
 
 .sum {
   position: relative; /* Necesario para posicionar el ::before correctamente */

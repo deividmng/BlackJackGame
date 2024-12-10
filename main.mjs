@@ -218,8 +218,8 @@ function bet(amount) {
       { once: true }
     );
     betImage.classList.remove("spinAndDisappear");
-    const startGameElement = document.getElementById("startGamePricipal");
-    startGameElement.style.opacity = 3;
+    // const startGameElement = document.getElementById("startGamePricipal");
+    // startGameElement.style.opacity = 3;
 
     // Guardar la apuesta en el array
     
@@ -349,6 +349,7 @@ function startGame() {
     document.getElementById("bet-buttons").style.display = "none";
     betImage.classList.remove("spinAndDisappear");
     document.getElementById("cleanBet").style.display = "none";
+    document.getElementById("autoDeal").style.display = "none";
 
     renderGame();
     renderGameDealer();
@@ -642,17 +643,17 @@ function stand() {
       // El jugador se pasa (pierde)
       message = "You Busted! Dealer Wins!";
       loseBet();
-      message.classList.add('message-bust', 'bust-animation');  // Clases adicionales para "Busted"
+      // message.classList.add('message-bust', 'bust-animation');  // Clases adicionales para "Busted"
     } else if (sumDealer > 21) {
       // El dealer se pasa (gana el jugador)
       message = "Dealer Busted! You Win!";
       winBet();
-      message.classList.add('message-blackjack', 'win-animation');  // Clases adicionales para "You Win"
+      // message.classList.add('message-blackjack', 'win-animation');  // Clases adicionales para "You Win"
     } else if (sum > sumDealer) {
       // El jugador gana
       message = "You Win!";
       winBet();
-      message.classList.add('message-blackjack', 'win-animation');  // Clases adicionales para "You Win"
+      // message.classList.add('message-blackjack', 'win-animation');  // Clases adicionales para "You Win"
     } else if (sum < sumDealer) {
       // El dealer gana
       message = "Dealer Wins!";
@@ -691,11 +692,12 @@ function resetGameAfterDelay() {
     inicialColor();
     document.getElementById("cleanBet").style.display = "flex"; // Mostrar el botón de limpiar apuesta
     document.getElementById("startGame").style.display = "flex";
+    document.getElementById("autoDeal").style.display = "flex";
     sumEl.classList.remove("sum");
     playerDealer.classList.remove("sumDel");
-  }, 6000);
-  // el delay de 6000 es los segundos que tienen que pasar para render de game again 
-}
+  }, 6000); }
+
+
 // aqui va la parte de la img de sum:el
 // ...
 // Aquí definimos el elemento betImage después de haber declarado la variable betSum
@@ -778,25 +780,21 @@ function loseBetEfect() {
     }, 500); // La duración debe coincidir con la duración de la animación growBigger (0.5s en este caso)
   }, 1000); // La duración debe coincidir con la duración de la animación moveToTopLeft (1s en este caso)
 }
+// autoDeal 
 
-
-
-/// autoDeal 
-
-
+let isAutoDealActive = false; // Controla si el Auto Deal está activo
 
 function autoDeal() {
-  if (betHistory.length > 0) {
+  if (betHistory.length > 0 ) {
     // Obtener la última apuesta y convertirla en un número
     let lastBet = parseInt(betHistory[betHistory.length - 1], 10);
+    updateChips(chips[0] - lastBet);
     
     if (!isNaN(lastBet)) {
       betAmount = lastBet; // Asignar la última apuesta válida a betAmount
       console.log("AutoDeal activado. Última apuesta:", betAmount);
-
       // Actualizar la visualización de la suma
       betSum.textContent = lastBet;
-
       // Llamar a startGame automáticamente
       startGame();
     } else {
@@ -808,4 +806,7 @@ function autoDeal() {
     toastr.error("No previous bet found. Please place a bet.");
   }
 }
+
+
+
 
